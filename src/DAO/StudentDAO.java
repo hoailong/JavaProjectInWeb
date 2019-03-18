@@ -20,7 +20,7 @@ public class StudentDAO implements IStudentDAO {
 	@Override
 	public List<StudentDTO> showStudent(){
 		String sql = "SELECT s.ID, s.Name, s.Birth, s.Sex, s.Math, s.Physical, s.Chemistry, p.Name as pName, p.Code "
-				+ "FROM dbo.student s, dbo.province p WHERE s.Place = p.Code ";
+				+ "FROM student s, province p WHERE s.Place = p.Code ";
 
 		List<StudentDTO> list = new ArrayList<StudentDTO>();
 		try {
@@ -29,9 +29,9 @@ public class StudentDAO implements IStudentDAO {
 			
 			while (rs.next()) {
 				int pCode = rs.getInt("Code");
-				String pName = rs.getNString("pName");
+				String pName = rs.getString("pName");
 				int id = rs.getInt("ID");
-				String name = rs.getNString("Name");
+				String name = rs.getString("Name");
 				String birth = rs.getString("Birth");
 				int sex = rs.getInt("Sex");
 				float math = rs.getFloat("Math");
@@ -50,7 +50,7 @@ public class StudentDAO implements IStudentDAO {
 	public StudentDTO findStudent(int idSearch) {
 //		String sql = "Select * from Student where id = ?";
 		String sql = "SELECT s.ID, s.Name, s.Birth, s.Sex, s.Math, s.Physical, s.Chemistry, p.Name as pName, p.Code "
-				+ "FROM dbo.student s, dbo.province p WHERE s.Place = p.Code and s.ID = ?";
+				+ "FROM student s, province p WHERE s.Place = p.Code and s.ID = ?";
 		
 		PreparedStatement pstm;
 		
@@ -60,8 +60,8 @@ public class StudentDAO implements IStudentDAO {
 			ResultSet rs = pstm.executeQuery();
 			while (rs.next()) {
 				int pCode = rs.getInt("Code");
-				String pName = rs.getNString("pName");
-				String name = rs.getNString("Name");
+				String pName = rs.getString("pName");
+				String name = rs.getString("Name");
 				String birth = rs.getString("Birth");
 				int sex = rs.getInt("Sex");
 				float math = rs.getFloat("Math");
@@ -80,7 +80,7 @@ public class StudentDAO implements IStudentDAO {
 	@Override
 	public List<StudentDTO> findStudent(String idSearch, String placeSearch) {
 		String sql = "SELECT s.ID, s.Name, s.Birth, s.Sex, s.Math, s.Physical, s.Chemistry, p.Name as pName, p.Code "
-				+ "FROM dbo.student s, dbo.province p WHERE s.Place = p.Code AND s.ID LIKE '" + idSearch + "%' AND  p.Code LIKE '" + placeSearch +"%'";
+				+ "FROM student s, province p WHERE s.Place = p.Code AND s.ID LIKE '" + idSearch + "%' AND  p.Code LIKE '" + placeSearch +"%'";
 		
 		List<StudentDTO> list = new ArrayList<StudentDTO>();
 		PreparedStatement pstm;
@@ -90,9 +90,9 @@ public class StudentDAO implements IStudentDAO {
 			
 			while (rs.next()) {
 				int pCode = rs.getInt("Code");
-				String pName = rs.getNString("pName");
+				String pName = rs.getString("pName");
 				int id = rs.getInt("ID");
-				String name = rs.getNString("Name");
+				String name = rs.getString("Name");
 				String birth = rs.getString("Birth");
 				int sex = rs.getInt("Sex");
 				float math = rs.getFloat("Math");
