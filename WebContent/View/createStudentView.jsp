@@ -7,44 +7,12 @@
 <meta charset="UTF-8">
 <link rel="icon" href="https://cdn.vectoricons.net/wp-content/themes/checkout-child/images/me-as-icon-with-glass-transparent.png" type="image/x-icon" />
 <title>Thêm thí sinh mới</title>
-<style>
-a {
-	text-decoration: none;
-}
-
-h1 {
-	font-family:Tahoma;
-}
-
-a:hover {
-	color: red;
-}
-
-table {
-	border-collapse: collapse;
-	width: 22%;
-	margin: 0 auto;
-}
-
-th, td {
-	text-align: left;
-	padding: 8px;
-}
-
-tr:nth-child(even) {
-	background-color: #f2f2f2
-}
-
-th {
-	background-color: #4CAF50;
-	color: white;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/style.css" />
 </head>
 <body>
 	<!-- 	<div class="create"> -->
 	<form class="" action="<%=request.getContextPath()%>/CreateStudent" method="post">
-		<table border='1'>
+		<table border='1' style="width:22%">
 			<th colspan="2"><h1>Thêm thí sinh mới</h1></th>
 			<tr>
 				<td><label for="studentID">Mã sinh viên</label></td>

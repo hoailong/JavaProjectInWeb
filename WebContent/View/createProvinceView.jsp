@@ -7,43 +7,11 @@
 <meta charset="UTF-8">
 <link rel="icon" href="https://cdn.vectoricons.net/wp-content/themes/checkout-child/images/me-as-icon-with-glass-transparent.png" type="image/x-icon" />
 <title>Thêm tỉnh mới</title>
-<style>
-a {
-	text-decoration: none;
-}
-
-a:hover {
-	color: red;
-}
-
-h1 {
-	font-family:Tahoma;
-}
-
-table {
-	border-collapse: collapse;
-	width: 20%;
-	margin: 0 auto;
-}
-
-th, td {
-	text-align: left;
-	padding: 8px;
-}
-
-tr:nth-child(even) {
-	background-color: #f2f2f2
-}
-
-th {
-	background-color: #4CAF50;
-	color: white;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/style.css" />
 </head>
 <body>
 	<form class="" action="<%=request.getContextPath()%>/CreateProvince" method="post">
-		<table border='1'>
+		<table border='1' style="width:20%">
 			<th colspan="2"><h1>Thêm Tỉnh Mới</h1></th>
 			<tr>
 				<td><label for="provinceCode">Mã tỉnh</label></td>
