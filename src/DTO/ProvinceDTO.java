@@ -2,16 +2,16 @@ package DTO;
 
 public class ProvinceDTO {
 	private String name;
-	private int code;
+	private int Id;
 	
 	public ProvinceDTO() {
 		super();
 	}
 	
-	public ProvinceDTO(String name, int code) {
+	public ProvinceDTO(String name, int provinceId) {
 		super();
 		this.name = name;
-		this.code = code;
+		this.Id = provinceId;
 	}
 
 	public String getName() {
@@ -22,17 +22,17 @@ public class ProvinceDTO {
 		this.name = name;
 	}
 
-	public int getCode() {
-		return code;
+	public int getId() {
+		return Id;
 	}
 
-	public void setCode(int code) {
-		this.code = code;
+	public void setId(int provinceId) {
+		this.Id = provinceId;
 	}
 
 	@Override
 	public String toString() {
-		return "ProvinceDTO [name=" + name + ", code=" + code + "]";
+		return "ProvinceDTO [name=" + name + ", provinceId=" + Id + "]";
 	}
 	
 	

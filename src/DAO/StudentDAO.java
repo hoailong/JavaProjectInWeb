@@ -19,26 +19,25 @@ public class StudentDAO implements IStudentDAO {
 
 	@Override
 	public List<StudentDTO> showStudent(){
-		String sql = "SELECT s.ID, s.Name, s.Birth, s.Sex, s.Math, s.Physical, s.Chemistry, p.Name as pName, p.Code "
-				+ "FROM student s, province p WHERE s.Place = p.Code ";
+		String sql = "SELECT s.student_id, s.name as student_name, s.dob, s.gender, s.math, s.physical, s.chemistry, p.name as province_name, p.province_id "
+				+ "FROM student s, province p WHERE s.province_id = p.province_id";
 
 		List<StudentDTO> list = new ArrayList<StudentDTO>();
 		try {
 			PreparedStatement pstm = conn.prepareStatement(sql);
-			ResultSet rs = pstm.executeQuery();
-			
-			while (rs.next()) {
-				int pCode = rs.getInt("Code");
-				String pName = rs.getString("pName");
-				int id = rs.getInt("ID");
-				String name = rs.getString("Name");
-				String birth = rs.getString("Birth");
-				int sex = rs.getInt("Sex");
-				float math = rs.getFloat("Math");
-				float physical = rs.getFloat("Physical");
-				float chemistry = rs.getFloat("Chemistry");
-				StudentDTO std = new StudentDTO(id, name, new ProvinceDTO(pName, pCode), birth, sex, math, physical, chemistry);
-				list.add(std);
+			ResultSet result = pstm.executeQuery();
+			while (result.next()) {
+				int provinceId = result.getInt("province_id");
+				String provinceName = result.getString("province_name");
+				int studentId = result.getInt("student_id");
+				String studentName = result.getString("student_name");
+				String studentDob = result.getString("dob");
+				int studentGender = result.getInt("gender");
+				float math = result.getFloat("math");
+				float physical = result.getFloat("physical");
+				float chemistry = result.getFloat("chemistry");
+				StudentDTO student = new StudentDTO(studentId, studentName, new ProvinceDTO(provinceName, provinceId), studentDob, studentGender, math, physical, chemistry);
+				list.add(student);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -49,57 +48,55 @@ public class StudentDAO implements IStudentDAO {
 	@Override
 	public StudentDTO findStudent(int idSearch) {
 //		String sql = "Select * from Student where id = ?";
-		String sql = "SELECT s.ID, s.Name, s.Birth, s.Sex, s.Math, s.Physical, s.Chemistry, p.Name as pName, p.Code "
-				+ "FROM student s, province p WHERE s.Place = p.Code and s.ID = ?";
+		String sql = "SELECT s.student_id, s.name, s.dob, s.gender, s.math, s.physical, s.chemistry, p.name as province_name, p.province_id "
+				+ "FROM student s, province p WHERE s.province_id = p.province_id AND s.student_id = ?";
 		
 		PreparedStatement pstm;
-		
 		try {
 			pstm = conn.prepareStatement(sql);
 			pstm.setInt(1, idSearch);
-			ResultSet rs = pstm.executeQuery();
-			while (rs.next()) {
-				int pCode = rs.getInt("Code");
-				String pName = rs.getString("pName");
-				String name = rs.getString("Name");
-				String birth = rs.getString("Birth");
-				int sex = rs.getInt("Sex");
-				float math = rs.getFloat("Math");
-				float physical = rs.getFloat("Physical");
-				float chemistry = rs.getFloat("Chemistry");
-				StudentDTO std = new StudentDTO(idSearch, name, new ProvinceDTO(pName, pCode), birth, sex, math, physical, chemistry);
-				return std;
+			ResultSet result = pstm.executeQuery();
+			while (result.next()) {
+				int provinceId = result.getInt("province_id");
+				String provinceName = result.getString("province_name");
+				int studentId = result.getInt("student_id");
+				String studentName = result.getString("student_name");
+				String studentDob = result.getString("dob");
+				int studentGender = result.getInt("gender");
+				float math = result.getFloat("math");
+				float physical = result.getFloat("physical");
+				float chemistry = result.getFloat("chemistry");
+				StudentDTO student = new StudentDTO(studentId, studentName, new ProvinceDTO(provinceName, provinceId), studentDob, studentGender, math, physical, chemistry);
+				return student;
+				} 
+			}catch (SQLException e) {
+				e.printStackTrace();
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		return null;
 	}
 
 	@Override
 	public List<StudentDTO> findStudent(String idSearch, String placeSearch) {
-		String sql = "SELECT s.ID, s.Name, s.Birth, s.Sex, s.Math, s.Physical, s.Chemistry, p.Name as pName, p.Code "
-				+ "FROM student s, province p WHERE s.Place = p.Code AND s.ID LIKE '" + idSearch + "%' AND  p.Code LIKE '" + placeSearch +"%'";
+		String sql = "SELECT student_id, s.name, s.dob, s.gender, s.math, s.physical, s.chemistry, p.name as province_name, p.province_id "
+				+ "FROM student s, province p WHERE s.province_id = p.province_id AND student_id LIKE ? AND  p.Code LIKE ?";
 		
 		List<StudentDTO> list = new ArrayList<StudentDTO>();
 		PreparedStatement pstm;
 		try {
 			pstm = conn.prepareStatement(sql);
-			ResultSet rs = pstm.executeQuery();
-			
-			while (rs.next()) {
-				int pCode = rs.getInt("Code");
-				String pName = rs.getString("pName");
-				int id = rs.getInt("ID");
-				String name = rs.getString("Name");
-				String birth = rs.getString("Birth");
-				int sex = rs.getInt("Sex");
-				float math = rs.getFloat("Math");
-				float physical = rs.getFloat("Physical");
-				float chemistry = rs.getFloat("Chemistry");
-				StudentDTO std = new StudentDTO(id, name, new ProvinceDTO(pName, pCode), birth, sex, math, physical, chemistry);
-				list.add(std);
+			ResultSet result = pstm.executeQuery();
+			while (result.next()) {
+				int provinceId = result.getInt("province_id");
+				String provinceName = result.getString("province_name");
+				int studentId = result.getInt("student_id");
+				String studentName = result.getString("student_name");
+				String studentDob = result.getString("dob");
+				int studentGender = result.getInt("gender");
+				float math = result.getFloat("math");
+				float physical = result.getFloat("physical");
+				float chemistry = result.getFloat("chemistry");
+				StudentDTO student = new StudentDTO(studentId, studentName, new ProvinceDTO(provinceName, provinceId), studentDob, studentGender, math, physical, chemistry);
+				list.add(student);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -108,21 +105,21 @@ public class StudentDAO implements IStudentDAO {
 	}
 
 	@Override
-	public boolean insertStudent(StudentDTO std) {
-		String sql = "Insert into Student(ID,Name,Place,Birth,Sex,Math,Physical,Chemistry) values (?,?,?,?,?,?,?,?)";
+	public boolean insertStudent(StudentDTO student) {
+		String sql = "INSERT INTO student(student_id, name, province_id, dob, gender, math, physical, chemistry) VALUES (?,?,?,?,?,?,?,?)";
 		PreparedStatement pstm;
 		try {
 			pstm = conn.prepareStatement(sql);
-			pstm.setInt(1, std.getId());
-			pstm.setString(2, std.getName());
-			pstm.setInt(3, std.getPlace().getCode());
-			pstm.setString(4, std.getBirth());
-			pstm.setInt(5, std.getSex());
-			pstm.setFloat(6, std.getMath());
-			pstm.setFloat(7, std.getPhysical());
-			pstm.setFloat(8, std.getChemistry());
-			
-			if (pstm.executeUpdate() > 0) return true;
+			pstm.setInt(1, student.getId());
+			pstm.setString(2, student.getName());
+			pstm.setInt(3, student.getPlace().getId());
+			pstm.setString(4, student.getBirth());
+			pstm.setInt(5, student.getGender());
+			pstm.setFloat(6, student.getMath());
+			pstm.setFloat(7, student.getPhysical());
+			pstm.setFloat(8, student.getChemistry());
+			if (pstm.executeUpdate() > 0) 
+				return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -131,20 +128,20 @@ public class StudentDAO implements IStudentDAO {
 	}
 
 	@Override
-	public boolean updateStudent(StudentDTO std, int id) {
-		String sql = "Update Student set ID = ?, Name = ?, Place = ?,Birth = ? ,Sex = ? ,Math = ?, Physical = ?, Chemistry = ? where ID = ?";
+	public boolean updateStudent(StudentDTO student, int studentId) {
+		String sql = "UPDATE student set student_id = ?, name = ?, province_id = ?, dob = ? , gender = ? , math = ?, physical = ?, chemistry = ? where student_id = ?";
 		PreparedStatement pstm;
 		try {
 			pstm = conn.prepareStatement(sql);
-			pstm.setInt(1, std.getId());
-			pstm.setString(2, std.getName());
-			pstm.setInt(3, std.getPlace().getCode());
-			pstm.setString(4, std.getBirth());
-			pstm.setInt(5, std.getSex());
-			pstm.setFloat(6, std.getMath());
-			pstm.setFloat(7, std.getPhysical());
-			pstm.setFloat(8, std.getChemistry());
-			pstm.setInt(9, id);
+			pstm.setInt(1, student.getId());
+			pstm.setString(2, student.getName());
+			pstm.setInt(3, student.getPlace().getId());
+			pstm.setString(4, student.getBirth());
+			pstm.setInt(5, student.getGender());
+			pstm.setFloat(6, student.getMath());
+			pstm.setFloat(7, student.getPhysical());
+			pstm.setFloat(8, student.getChemistry());
+			pstm.setInt(9, studentId);
 			
 			if (pstm.executeUpdate() > 0) return true;
 		} catch (SQLException e) {
@@ -156,14 +153,16 @@ public class StudentDAO implements IStudentDAO {
 	}
 
 	@Override
-	public boolean deleteStudent(int id) {
-		String sql = "Delete Student where ID = ?";
+	public boolean deleteStudent(int studentId) {
+		String sql = "DELETE student WHERE student_id = ?";
 		PreparedStatement pstm;
 		try {
 			pstm = conn.prepareStatement(sql);
-			pstm.setInt(1, id);
+			pstm.setInt(1, studentId);
 			
-			if (pstm.executeUpdate() > 0) return true;
+			if (pstm.executeUpdate() > 0) { 
+				return true;
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

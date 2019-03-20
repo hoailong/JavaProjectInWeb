@@ -66,19 +66,18 @@ public class Management {
 			default:conti = false;
 				break;
 			}
-//			sc.nextLine();
 		}
 	}
 
 	private static void showListStudent(Connection conn) {
-		StudentDAO stdDao = new StudentDAO(conn);
-		List<StudentDTO> listStd = stdDao.showStudent();
+		StudentDAO studentDao = new StudentDAO(conn);
+		List<StudentDTO> liststudent = studentDao.showStudent();
 
-		if (listStd.isEmpty()) {
+		if (liststudent.isEmpty()) {
 			System.out.println("List Empty!");
 		} else {
-			for (StudentDTO std : listStd) {
-				System.out.println(std.toString());
+			for (StudentDTO student : liststudent) {
+				System.out.println(student.toString());
 			}
 
 		}
@@ -86,10 +85,10 @@ public class Management {
 	}
 
 	private static void insertStudent(Connection conn) {
-		StudentDAO stdDao = new StudentDAO(conn);
+		StudentDAO studentDao = new StudentDAO(conn);
 		System.out.println("Nhập thông tin sinh viên mới:");
-		StudentDTO stdDTO = inputNewStudent();
-		if (stdDao.insertStudent(stdDTO)) {
+		StudentDTO studentDTO = inputNewStudent();
+		if (studentDao.insertStudent(studentDTO)) {
 			System.out.println("Insert success!");
 		} else {
 			System.out.println("Insert fail!");
@@ -100,11 +99,11 @@ public class Management {
 		int idFind;
 		System.out.println("Nhập mã sinh viên cần tìm: ");
 		idFind = Integer.parseInt(sc.nextLine());
-		StudentDAO stdDao = new StudentDAO(conn);
-		StudentDTO std = stdDao.findStudent(idFind);
-		if (std != null) {
+		StudentDAO studentDao = new StudentDAO(conn);
+		StudentDTO student = studentDao.findStudent(idFind);
+		if (student != null) {
 			System.out.println("Student you find: ");
-			System.out.println(std.toString());
+			System.out.println(student.toString());
 		} else {
 			System.out.println("No record ID = " + idFind);
 		}
@@ -117,10 +116,10 @@ public class Management {
 		// kiểm tra mã sinh viên có tồn tại hay k
 		// dùng BUS
 		// nếu mã sinh viên có tồn tại thì tiếp tục
-		StudentDAO stdDao = new StudentDAO(conn);
+		StudentDAO studentDao = new StudentDAO(conn);
 		System.out.println("Nhập thông tin mới của sinh viên:");
-		StudentDTO stdDTO = inputNewStudent();
-		if (stdDao.updateStudent(stdDTO, idUpdate)) {
+		StudentDTO studentDTO = inputNewStudent();
+		if (studentDao.updateStudent(studentDTO, idUpdate)) {
 			System.out.println("Update success!");
 		} else {
 			System.out.println("Update fail!");
@@ -134,8 +133,8 @@ public class Management {
 		// kiểm tra mã sinh viên có tồn tại hay k
 		// dùng BUS
 		// nếu mã sinh viên có tồn tại thì tiếp tục
-		StudentDAO stdDao = new StudentDAO(conn);
-		if (stdDao.deleteStudent(idDelete)) {
+		StudentDAO studentDao = new StudentDAO(conn);
+		if (studentDao.deleteStudent(idDelete)) {
 			System.out.println("Delete success!");
 		} else {
 			System.out.println("Delete fail!");
@@ -149,8 +148,8 @@ public class Management {
 		if (listPrv.isEmpty()) {
 			System.out.println("List Empty!");
 		} else {
-			for (ProvinceDTO std : listPrv) {
-				System.out.println(std.toString());
+			for (ProvinceDTO student : listPrv) {
+				System.out.println(student.toString());
 			}
 
 		}

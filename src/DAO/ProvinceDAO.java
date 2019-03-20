@@ -23,13 +23,13 @@ public class ProvinceDAO implements IProvinceDAO{
 		List<ProvinceDTO> list = new ArrayList<ProvinceDTO>();
 		try {
 			PreparedStatement pstm = conn.prepareStatement(sql);
-			ResultSet rs = pstm.executeQuery();
+			ResultSet result = pstm.executeQuery();
 			
-			while (rs.next()) {
-				int pCode = rs.getInt("Code");
-				String pName = rs.getString("Name");
-				ProvinceDTO std = new ProvinceDTO(pName, pCode);
-				list.add(std);
+			while (result.next()) {
+				int provinceId = result.getInt("province_id");
+				String provinceName = result.getString("name");
+				ProvinceDTO province = new ProvinceDTO(provinceName, provinceId);
+				list.add(province);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -38,15 +38,16 @@ public class ProvinceDAO implements IProvinceDAO{
 	}
 
 	@Override
-	public boolean insertProvince(ProvinceDTO prv) {
-		String sql = "Insert into Province(Code,Name) values (?,?)";
+	public boolean insertProvince(ProvinceDTO province) {
+		String sqlQuery = "INSERT INTO province(province_id, name) VALUES (?,?)";
 		PreparedStatement pstm;
 		try {
-			pstm = conn.prepareStatement(sql);
-			pstm.setInt(1, prv.getCode());
-			pstm.setString(2, prv.getName());
-//			System.out.println(prv.getName());
-			if (pstm.executeUpdate() > 0) return true;
+			pstm = conn.prepareStatement(sqlQuery);
+			pstm.setInt(1, province.getId());
+			pstm.setString(2, province.getName());
+			if (pstm.executeUpdate() > 0) {
+				return true;
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
