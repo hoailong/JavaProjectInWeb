@@ -1,4 +1,4 @@
-package SERVLET;
+package TestServlet;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -12,22 +12,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import DAO.ProvinceDAO;
-import DAO.StudentDAO;
 import DTO.ProvinceDTO;
-import DTO.StudentDTO;
 import JDBC.DBUtil;
 
 /**
- * Servlet implementation class EditStudentView
+ * Servlet implementation class CreateStudentServlet
  */
-@WebServlet("/editStudent")
-public class EditStudentView extends HttpServlet {
+@WebServlet("/createStudent")
+public class CreateStudentView extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EditStudentView() {
+    public CreateStudentView() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,23 +34,16 @@ public class EditStudentView extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("id"));
-		
 		Connection conn = DBUtil.getSqlConn();
-		
-		StudentDAO stdDao = new StudentDAO(conn);
-		
-		StudentDTO studentDTO = stdDao.findStudent(id);
-		
-		request.setAttribute("student", studentDTO);
 		
 		ProvinceDAO prvDao = new ProvinceDAO(conn);
 		List<ProvinceDTO> listPrv = prvDao.showProvince();
 		
 		request.setAttribute("listProvince", listPrv);
-	
-		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/View/editStudentView.jsp");
+		
+		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/View/createStudentView.jsp");
 		rd.forward(request, response);
+		
 	}
 
 	/**

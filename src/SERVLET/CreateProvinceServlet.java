@@ -55,6 +55,9 @@ public class CreateProvinceServlet extends HttpServlet {
 			request.setAttribute("msg", "Thêm prvDTO mới không thành công!");
 		}
 		
+		//đóng connection
+		DBUtil.closeConnect(conn);
+		
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Home");
 		rd.forward(request, response);
 	}
