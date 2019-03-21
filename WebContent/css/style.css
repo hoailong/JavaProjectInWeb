@@ -1,15 +1,21 @@
 * {
 	margin: 0;
 	padding: 0;
+	font-family:cursive, Arial,sans-serif;	
+}
+
+body {
+	font-family:cursive, Arial,sans-serif;	
 }
 
 .wrapper {
 	border: 2px solid green;
 	box-shadow: 0px 0px 15px 10px  #5cd65c;
-	margin:40px 10%;
+	margin:20px 10%;
 	overflow-y: scroll;
 	text-align: center;
-	max-height: 700px;
+	max-height: 650px;
+	padding-bottom:20px;
 }
 
 a {
@@ -17,7 +23,7 @@ a {
 	text-decoration: none;
 }
 
-a:hover {
+a:hover, span:hover {
 	color: red;
 }
 
@@ -30,11 +36,15 @@ h1 {
 	padding: 20px;
 }
 
+input,select {
+	font-family:cursive, Arial,sans-serif;
+}
+
 table {
 	border-collapse: collapse;
 	width: 90%;
 	margin: 0 auto;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 }
 
 th, td {
@@ -43,9 +53,11 @@ th, td {
 }
 
 tr:nth-child(even) {
-	background-color: #f2f2f2
+	background-color: #f2f2f2;
 }
-
+tr:nth-child(odd) {
+	background-color: white;
+}
 tr:hover {
 	background-color: #ccebff;
 }
@@ -66,27 +78,122 @@ th {
 	border-radius: 10px;
 }
 
-#findStudent input[type=submit] {
-	background-color: #3385ff;
-	color: white;
-	border: none;
-	padding:0 20px;
+input[type=text], input[type=date], select{
+	width:180px;	
+	height:25px;
+	border-radius: 2px;
+	border:1px solid #ccc;
+	padding-left:10px;
 }
 
-#findStudent input[type=submit]:hover {
-	background-color: blue;
-}
 .create {
 	margin-bottom:15px;
 }
 
-.create a {
+
+.btn {
+	border:1px solid transparent;
+	border-radius:2px;	
+	color:white;
+	padding:0 15px;	
+	height:30px;
+	border-radius: 10px;
+}
+
+i {
+	margin-right:3px;
+}
+
+.btnSave {	
+	background-color:blue;
+}
+
+.btnSave:hover {
+	background-color:darkblue;
+}
+
+.btnSearch {
+	border:1px solid blue;
+	background-color:#3385ff;
+}
+
+.btnSearch:hover {
+	background-color:blue;
+}
+
+.btnEdit {
+	background-color:blue;
+}
+
+.btnEdit:hover {
+	background-color:darkblue;
+}
+
+.btnEdit {
+	background-color:blue;
+}
+
+.btnEdit:hover {
+	background-color:darkblue;
+}
+.btnDelete {
+	background-color:red;
+}
+
+.btnDelete:hover {
+	background-color:darkred;
+}
+
+#btnAdd {
+	font-size:20px;
 	color:white;
 	background:orange;
-	padding:10px;
+	padding:8px 15px;
+	border:1px solid transparent;
 	border-radius: 30px;
 }
 
-.create a:hover {
+#btnAdd:hover {
 	background:#ff8000;
 }
+.createStdFrm, .editStdFrm {
+	  width:400px;
+	  position: absolute;
+	  top:50%;
+	  left:50%;
+	  transform: translate(-50%,-50%);
+}
+
+.createPrvFrm {
+	  width:300px;
+	  position: absolute;
+	  top:40%;
+	  left:50%;
+	  transform: translate(-50%,-50%);
+}
+
+.acceptFrm {
+		width:300px;
+	  position: absolute;
+	  top:40%;
+	  left:50%;
+	  transform: translate(-50%,-50%);
+}
+
+.createStd, .editStd, .createPrv , .accept{
+	  display: none;
+	  position: fixed; 
+	  z-index: 1;
+	  left: 0;
+	  top: 0;
+	  width: 100%; 
+	  height: 100%; 
+	  overflow: auto; 
+	  background-color: rgba(0,0,0,0.6); 
+}
+
+#dialog {
+	display:none;
+	color:red;
+}
+

@@ -45,7 +45,10 @@ public class DeleteStudentServlet extends HttpServlet {
 		else {
 			request.setAttribute("msg", "Xóa sinh viên mới không thành công!");
 		}
-	
+		
+		//đóng connection
+		DBUtil.closeConnect(conn);
+		
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Home");
 		rd.forward(request, response);
 	}

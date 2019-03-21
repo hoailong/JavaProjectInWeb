@@ -37,6 +37,8 @@ public class EditStudentServlet extends HttpServlet {
 		//sử dụng đc tiếng việt
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
+		
+		int idUpdate = Integer.parseInt(request.getParameter("id"));
 		//lấy thông tin đã nhập trên form
 		int id = Integer.parseInt(request.getParameter("studentID"));
 		String name = request.getParameter("studentName");
@@ -52,14 +54,17 @@ public class EditStudentServlet extends HttpServlet {
 		
 		StudentDAO stdDao = new StudentDAO(conn);
 		
-		if(stdDao.updateStudent(stdDTO,id)) {
+		if(stdDao.updateStudent(stdDTO,idUpdate)) {
 			request.setAttribute("msg", "Update sinh viên mới thành công!");
 		}
 		
 		else {
 			request.setAttribute("msg", "Update sinh viên mới không thành công!");
 		}
-	
+		
+		//đóng connection
+		DBUtil.closeConnect(conn);
+		
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Home");
 		rd.forward(request, response);
 	}

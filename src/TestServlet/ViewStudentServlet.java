@@ -1,4 +1,4 @@
-package SERVLET;
+package TestServlet;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -18,41 +18,46 @@ import DTO.StudentDTO;
 import JDBC.DBUtil;
 
 /**
- * Servlet implementation class HomeServlet
+ * Servlet implementation class EditStudentView
  */
-@WebServlet("/Home")
-public class HomeServlet extends HttpServlet {
+@WebServlet("/ViewStudent")
+public class ViewStudentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-    public HomeServlet() {
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public ViewStudentServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub		
+		int id = Integer.parseInt(request.getParameter("id"));
+		
 		Connection conn = DBUtil.getSqlConn();
-//		DBUtil.closeConnect(conn);
+		
 		StudentDAO stdDao = new StudentDAO(conn);
-		List<StudentDTO> listStd = stdDao.showStudent();
+		
+		StudentDTO studentDTO = stdDao.findStudent(id);
+		
+		request.setAttribute("student", studentDTO);
 		
 		ProvinceDAO prvDao = new ProvinceDAO(conn);
 		List<ProvinceDTO> listPrv = prvDao.showProvince();
 		
-		//
 		request.setAttribute("listProvince", listPrv);
-		//
-		request.setAttribute("listStudent", listStd);
-		//
-//		request.setAttribute("msg", "Thông báo");
-		//đóng connection
-		DBUtil.closeConnect(conn);
-		
-		//chuyển hướng trang  về jsp
-		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/View/index.jsp");
+	
+		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/View/viewStudent.jsp");
 		rd.forward(request, response);
 	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

@@ -54,6 +54,10 @@ public class SearchStudentServlet extends HttpServlet {
 			//
 			request.setAttribute("listStudent", listStd);
 			
+			
+			//đóng connection
+			DBUtil.closeConnect(conn);
+			
 			//chuyển hướng trang  về jsp
 			RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/View/index.jsp");
 			rd.forward(request, response);
