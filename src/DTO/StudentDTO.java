@@ -5,7 +5,7 @@ public class StudentDTO {
 	private String name;
 	private ProvinceDTO place;
 	private String birth;
-	private int sex;
+	private int gender;
 	private float math;
 	private float physical;
 	private float chemistry;
@@ -14,14 +14,14 @@ public class StudentDTO {
 		super();
 	}
 
-	public StudentDTO(int id, String name, ProvinceDTO place, String birth, int sex, float math, float physical,
+	public StudentDTO(int id, String name, ProvinceDTO place, String birth, int gender, float math, float physical,
 			float chemistry) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.place = place;
 		this.birth = birth;
-		this.sex = sex;
+		this.gender = gender;
 		this.math = math;
 		this.physical = physical;
 		this.chemistry = chemistry;
@@ -59,12 +59,12 @@ public class StudentDTO {
 		this.birth = birth;
 	}
 
-	public int getSex() {
-		return sex;
+	public int getGender() {
+		return gender;
 	}
 
-	public void setSex(int sex) {
-		this.sex = sex;
+	public void setGender(int gender) {
+		this.gender = gender;
 	}
 
 	public float getMath() {
@@ -93,8 +93,8 @@ public class StudentDTO {
 
 	@Override
 	public String toString() {
-		return "StudentDTO2 [id=" + id + ", name=" + name + ", place=" + place.toString() + ", birth=" + birth + ", sex=" + sex
-				+ ", math=" + math + ", physical=" + physical + ", chemistry=" + chemistry + "]";
+		return "StudentDTO2 [id=" + id + ", name=" + name + ", place=" + place.toString() + ", birth=" + birth + 
+				", gender="  + gender + ", math=" + math + ", physical=" + physical + ", chemistry=" + chemistry + "]";
 	}
 
 
