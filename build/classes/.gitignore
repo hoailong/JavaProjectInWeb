@@ -1,10 +1,7 @@
-/BUS/
-/DAO/
-/DTO/
-/GUI/
-/JDBC/
 /SERVLET/
-<<<<<<< HEAD
+/DAO/
+/GUI/
 /TestServlet/
-=======
->>>>>>> origin/nam
+/BUS/
+/JDBC/
+/it1/
