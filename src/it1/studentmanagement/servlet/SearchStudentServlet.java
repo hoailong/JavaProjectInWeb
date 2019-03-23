@@ -26,8 +26,18 @@ public class SearchStudentServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String idStdSearch = request.getParameter("idStdSearch");
-		String idPlaceSearch = request.getParameter("idPlaceSearch");
+		String namePlaceSearch = request.getParameter("namePlaceSearch");
 		
+		int page = 1;
+		int count = 10;
+		int totalPage = 1;
+		int record = 0;
+		try {
+			page = Integer.parseInt(request.getParameter("page"));
+			count = Integer.parseInt(request.getParameter("count"));
+		} catch (NumberFormatException e) {
+			
+		}
 		String message = null;
 		StudentDAO stdDao = new StudentDAO();
 		ProvinceDAO prvDao = new ProvinceDAO();
@@ -35,7 +45,9 @@ public class SearchStudentServlet extends HttpServlet {
 		List<ProvinceDTO> listPrv = null;
 		
 		try {
-			listStd = stdDao.findStudent(idStdSearch, idPlaceSearch);
+			listStd = stdDao.findStudent(idStdSearch, namePlaceSearch);
+			record = listStd.size();
+			count = record/5 * 5 + 5;
 			listPrv = prvDao.showProvince();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -45,8 +57,12 @@ public class SearchStudentServlet extends HttpServlet {
 		
 		
 		request.setAttribute("msg", message);
+		request.setAttribute("page", page);
+		request.setAttribute("count", count);
+		request.setAttribute("totalPage", totalPage);
+		request.setAttribute("record", record);
 		request.setAttribute("idStdSearch", idStdSearch);
-		request.setAttribute("idPlaceSearch", idPlaceSearch);
+		request.setAttribute("namePlaceSearch", namePlaceSearch);
 		request.setAttribute("listProvince", listPrv);
 		request.setAttribute("listStudent", listStd);
 

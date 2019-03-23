@@ -55,7 +55,7 @@ $(document).ready(function(){
 	});
 	
 	//xử lý khi ấn vào mỗi tr thì lấy thông tin và cho vào form
-	$("#tblShow tr").click(function(){
+	$("#tblShow .stdTr").click(function(){
 		//$(this).css("background","red");
 		//lấy các value của tr
 		var id = $(this).find('td:nth-child(2)').text();

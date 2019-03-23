@@ -26,7 +26,7 @@
 	</c:if>
 	<!--End Hiện thị thông báo khi forward đến trang /Home -->
 	<div class="tab">
-	  <button class="active btnhome"><h2><i class="fas fa-home"></i>Home</h2></button>
+	  <a href="<%=request.getContextPath()%>/Home"><button class="active btnhome"><h2><i class="fas fa-home"></i>Home</h2></button></a>
 	  <button class="btnabout"><h2><i class="fas fa-info-circle"></i>About</h2></button>
 	</div>
 	<div class="wrapper">
@@ -36,23 +36,16 @@
 			<div id="findStudent">
 				<form method="GET" action="<%=request.getContextPath()%>/searchStudent">
 					<label for="idStdSearch" name="" ><i class="far fa-id-card"></i>Mã thí sinh:</label> 
-					<input type="number" name="idStdSearch" id="idStdSearch" value="${idStdSearch}"> 
-					<label for="idPlaceSearch" name=""><i class="fas fa-map-marker-alt"></i>Quê quán:</label> 
-					<select class="" name="idPlaceSearch" id="idPlaceSearch">
-	 				
-	 				<%--Hiển thị tên tỉnh đang tìm kiếm chưa xong @@
-	 				<c:if test="${empty idPlaceSearch}">
-						<option value="">----Chọn tỉnh----</option>
-					</c:if>
-					<c:if test="${not empty idPlaceSearch}">
-						<option value="">${idPlaceSearch}</option>
-					</c:if> 
-					--%>
-					
-					<option value="">----Chọn tỉnh----</option>
-						<c:forEach items="${listProvince}" var="province">
-							<option value="${province.id}">${province.name}</option>
-						</c:forEach>
+					<input onchange="this.form.submit()" type="number" name="idStdSearch" id="idStdSearch" value="${idStdSearch}"> 
+					<label for="namePlaceSearch" name=""><i class="fas fa-map-marker-alt"></i>Quê quán:</label> 
+					<select onchange="this.form.submit()" class="" name="namePlaceSearch" id="namePlaceSearch">
+						<c:if test="${not empty namePlaceSearch}">
+							<option value="${namePlaceSearch}">${namePlaceSearch}</option>
+						</c:if> 
+							<option value="">----Tất cả----</option>
+							<c:forEach items="${listProvince}" var="province">
+								<option value="${province.name}">${province.name}</option>
+							</c:forEach>
 					</select>
 					<span class="addPrv" title="Chỉnh sửa danh sách tỉnh"><i class="fas fa-edit"></i></span>
 					<button class="btn btnSearch"><i class="fas fa-search"></i>Tìm Kiếm</button>
@@ -74,7 +67,7 @@
 				</tr>
 				<%!int i = 1; %> 
 				<c:forEach items="${listStudent}" var="student">
-					<tr>
+					<tr class="stdTr">
 						<td><% out.print(i);i++; %></td>
 						<td>${student.id}</td>
 						<td>${student.name}</td>
@@ -102,6 +95,26 @@
 							
 					</tr>
 				</c:forEach>
+				<tr>
+					<td colspan="9" style="text-align:right">
+						<form id="pageFrm" action="<%=request.getContextPath()%>/Home" method="post">
+							<c:if test="${page > 1}"><a style="color:#000" href="<%=request.getContextPath()%>/Home?page=${page-1}&count=${count}" title="Trang trước"><i class="fas fa-backward"></i></a></c:if>
+							<label for="page">Trang</label>
+							<input onchange="this.form.submit()" style="width:25px" type="number" min="1" max="${totalPage}" value="${page}" id="page" name="page"/>
+							/ ${totalPage}
+							<c:if test="${page < totalPage}"><a style="color:#000" href="<%=request.getContextPath()%>/Home?page=${page+1}&count=${count}"title="Trang sau"><i style="margin-left:5px" class="fas fa-forward"></i></a></c:if>
+							<select onchange="this.form.submit()" name="count" id="count" style="width:50px">
+								<option value="${count}">${count}</option>
+								<option value="5">5</option>
+								<option value="10">10</option>
+								<option value="15">15</option>
+								<option value="20">20</option>
+								<option value="30">30</option>
+							</select>
+							Tổng: <span>${record}</span>
+						</form>
+					</td>
+				</tr>
 				<%i = 1; %>
 			</table>
 			<button id="btnAdd">
@@ -123,13 +136,13 @@
 						</tr>
 						<tr>
 							<td rowspan="3">Những người thực hiện:</td>
-							<td><b>Phan Văn Hoài</b></td>
+							<td><b>Phan Văn Hoài (171203470)</b></td>
 						</tr>
 						<tr>
-							<td><b>Phạm Nhật Nam</b></td>
+							<td><b>Phạm Nhật Nam (171200791)</b></td>
 						</tr>
 						<tr>
-							<td><b>Lê Sơn Tùng</b></td>
+							<td><b>Lê Sơn Tùng (171210160)</b></td>
 						</tr>
 						<tr>
 							<td>Lớp:</td>

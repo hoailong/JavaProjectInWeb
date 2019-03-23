@@ -6,7 +6,8 @@ import java.util.List;
 import it1.studentmanagement.dto.StudentDTO;
 
 public interface IStudentDAO {
-	public List<StudentDTO> showStudent() throws SQLException;
+	public List<StudentDTO> showStudent(int offset, int count) throws SQLException;
+	public int getCountRow() throws SQLException;
 	public StudentDTO findStudent(int idSearch) throws SQLException;
 	public List<StudentDTO> findStudent(String idSearch, String placeSearch) throws SQLException;
 	public void insertStudent(StudentDTO student) throws SQLException;

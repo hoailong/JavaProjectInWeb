@@ -13,14 +13,16 @@ import it1.studentmanagement.jdbc.DBUtil;
 
 public class StudentDAO implements IStudentDAO {
 	@Override
-	public List<StudentDTO> showStudent() throws SQLException{
+	public List<StudentDTO> showStudent(int offset, int count) throws SQLException{
 		//tạo mới connection ở đây:
 		Connection conn = DBUtil.getSqlConn();
 		String sql = "SELECT s.student_id, s.name as student_name, s.dob, s.gender, s.math, s.physical, s.chemistry, p.name as province_name, p.province_id "
-				+ "FROM student s, province p WHERE s.province_id = p.province_id";
+				+ "FROM student s, province p WHERE s.province_id = p.province_id ORDER BY student_id ASC LIMIT ?,?";
 
 		List<StudentDTO> list = new ArrayList<StudentDTO>();
 		PreparedStatement pstm = conn.prepareStatement(sql);
+		pstm.setInt(1, offset);
+		pstm.setInt(2, count);
 		ResultSet result = pstm.executeQuery();
 		while (result.next()) {
 			int provinceId = result.getInt("province_id");
@@ -72,7 +74,7 @@ public class StudentDAO implements IStudentDAO {
 	public List<StudentDTO> findStudent(String idSearch, String placeSearch) throws SQLException {
 		//tạo mới connection ở đây:
 		Connection conn = DBUtil.getSqlConn();
-		String sql = "SELECT student_id, s.name, s.dob, s.gender, s.math, s.physical, s.chemistry, p.name as province_name, p.province_id  FROM student s,province p WHERE s.province_id = p.province_id AND s.student_id LIKE '" + idSearch + "%' AND  p.province_id LIKE '" + placeSearch + "%'";
+		String sql = "SELECT student_id, s.name, s.dob, s.gender, s.math, s.physical, s.chemistry, p.name as province_name, p.province_id  FROM student s,province p WHERE s.province_id = p.province_id AND s.student_id LIKE '" + idSearch + "%' AND  p.name LIKE '" + placeSearch + "%'";
 //		String sql = "SELECT student_id, s.name, s.dob, s.gender, s.math, s.physical, s.chemistry, p.name as province_name, p.province_id  FROM student s,province p WHERE s.province_id = p.province_id AND s.student_id LIKE ? AND  p.province_id LIKE ?";
 		List<StudentDTO> list = new ArrayList<StudentDTO>();
 		PreparedStatement pstm = conn.prepareStatement(sql);
@@ -146,5 +148,20 @@ public class StudentDAO implements IStudentDAO {
 		//đóng luôn connection ở đây
 		conn.close();
 	}
+
+	@Override
+	public int getCountRow() throws SQLException {
+		//tạo mới connection ở đây:
+		Connection conn = DBUtil.getSqlConn();
+		String sql = "Select count(*) from student";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		rs.next();
+		int count = rs.getInt(1);
+		//đóng luôn connection ở đây
+		conn.close();
+		return count;
+	}
+
 
 }

@@ -1,6 +1,11 @@
 //Class để test chương trình trên màn hình console
 package it1.studentmanagement.gui;
-public class Management {};
+public class Management {
+	public static void main(String[] args) {
+		int x = 11/5 * 5 + 5;
+		System.out.println(x);
+	}
+};
 
 /*package it1.studentmanagement.gui;
 

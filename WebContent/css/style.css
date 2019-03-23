@@ -19,8 +19,8 @@ body {
 	margin: 0 10%;
 	overflow-y: scroll;
 	text-align: center;
-	max-height: 650px;
-	padding-bottom: 20px;
+	max-height: 680px;
+	padding-bottom: 8px;
 }
 
 .about {
@@ -32,9 +32,11 @@ body {
 	background-color: transparent;
 	width: 400px;
 	margin: 0 auto;
+	z-index: 1;
 }
 
 .tab button {
+	transition:0.5s;
 	border: 2px solid green;
 	border-bottom: none;
 	color: white;
@@ -46,7 +48,6 @@ body {
 	padding: 8px 10px;
 	outline: none;
 	cursor: pointer;
-	height:
 }
 
 .tab button:hover {
@@ -79,6 +80,10 @@ h2 {
 	font-family: Tahoma;
 	color: green;
 	padding: 20px 0 10px 0;
+}
+
+.wrapper h1:hover {
+	color:#026a02;
 }
 
 input, select {
@@ -167,6 +172,7 @@ input[type=radio] {
 	padding: 0 15px;
 	height: 30px;
 	border-radius: 10px;
+	cursor: pointer;
 }
 
 i {
@@ -229,6 +235,7 @@ i {
 	padding: 8px 15px;
 	border: 1px solid transparent;
 	border-radius: 30px;
+	cursor: pointer;
 }
 
 #btnAdd:hover {
@@ -288,4 +295,8 @@ i {
 #dialog {
 	display: none;
 	color: red;
+}
+
+#sp, #sp span:hover {
+	color:#ccc;
 }
