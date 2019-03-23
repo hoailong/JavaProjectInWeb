@@ -1,7 +1,4 @@
-/SERVLET/
-/DAO/
-/GUI/
-/TestServlet/
 /BUS/
-/JDBC/
-/it1/
+/DAO/
+/SERVLET/
+/TestServlet/

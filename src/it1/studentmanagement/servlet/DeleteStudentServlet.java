@@ -35,7 +35,17 @@ public class DeleteStudentServlet extends HttpServlet {
 			message = "\nLỗi: " + e.getMessage();
 		}
 		
+<<<<<<< HEAD:src/it1/studentmanagement/servlet/DeleteStudentServlet.java
 		request.setAttribute("msg", message);
+=======
+		else {
+			request.setAttribute("msg", "Xóa sinh viên mới không thành công!");
+		}
+		
+		//đóng connection
+		DBUtil.closeConnect(conn);
+		
+>>>>>>> 7f99c9649e0e0c7e680bc1756a8cfb86a0cb772b:src/SERVLET/DeleteStudentServlet.java
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Home");
 		rd.forward(request, response);
 	}
