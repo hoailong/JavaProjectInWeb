@@ -47,13 +47,7 @@ public class CreateProvinceServlet extends HttpServlet {
 			message = "Thêm tỉnh mới không thành công!\nLỗi: " + e.getMessage();
 		}
 		
-<<<<<<< HEAD:src/it1/studentmanagement/servlet/CreateProvinceServlet.java
 		request.setAttribute("msg", message);
-=======
-		//đóng connection
-		DBUtil.closeConnect(conn);
-		
->>>>>>> 7f99c9649e0e0c7e680bc1756a8cfb86a0cb772b:src/SERVLET/CreateProvinceServlet.java
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Home");
 		rd.forward(request, response);
 	}
