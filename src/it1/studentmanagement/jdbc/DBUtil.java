@@ -9,14 +9,10 @@ public class DBUtil {
 	// tạo kết nối tới sql server
 	public static Connection getSqlConn(){
 		Connection conn = null;
-<<<<<<< HEAD:src/JDBC/DBUtil.java
 		String strConnection = "jdbc:mysql://localhost:3306/student_management?useUnicode=true&characterEncoding=utf-8&useServerPrepStmts=false";
-=======
-		String strConnection = "jdbc:mysql://localhost/student_management?useUnicode=true&characterEncoding=utf-8&useServerPrepStmts=false";
->>>>>>> origin/master:src/it1/studentmanagement/jdbc/DBUtil.java
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection(strConnection,"root","12345");
+			conn = DriverManager.getConnection(strConnection,"root","");
 		} catch (SQLException | ClassNotFoundException e) {
 			System.out.println("Loi: " + e.toString());
 		}
