@@ -57,7 +57,10 @@ public class CreateStudentServlet extends HttpServlet {
 		else {
 			request.setAttribute("msg", "Thêm sinh viên mới không thành công!");
 		}
-
+		
+		//đóng connection
+		DBUtil.closeConnect(conn);
+		
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Home");
 		rd.forward(request, response);
 	

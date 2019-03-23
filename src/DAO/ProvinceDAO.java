@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import DTO.ProvinceDTO;
+import JDBC.DBUtil;
 
 public class ProvinceDAO implements IProvinceDAO{
 	private Connection conn;
@@ -19,7 +20,9 @@ public class ProvinceDAO implements IProvinceDAO{
 	@Override
 	public List<ProvinceDTO> showProvince() {
 		String sql = "SELECT * FROM province";
-
+		//tạo mới connection ở đây:
+		//Connection conn = DBUtil.getSqlConn();
+		
 		List<ProvinceDTO> list = new ArrayList<ProvinceDTO>();
 		try {
 			PreparedStatement pstm = conn.prepareStatement(sql);
@@ -34,6 +37,9 @@ public class ProvinceDAO implements IProvinceDAO{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		//đóng luôn connection ở đây
+		//conn.close
 		return list;
 	}
 
