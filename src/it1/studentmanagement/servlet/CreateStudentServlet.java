@@ -50,7 +50,6 @@ public class CreateStudentServlet extends HttpServlet {
 			if (StudentBUS.checkConstant(id)) {
 				message =  "Thêm thí sinh mới không thành công! Mã thí sinh đã tồn tại!";
 			}
-			
 			//nếu chưa tồn tại thì tiến hành thêm
 			else {
 				stdDao.insertStudent(stdDTO);

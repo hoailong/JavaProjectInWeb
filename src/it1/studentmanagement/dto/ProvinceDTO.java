@@ -13,6 +13,13 @@ public class ProvinceDTO {
 		this.name = name;
 		this.id = provinceid;
 	}
+	
+	
+
+	public ProvinceDTO(String name) {
+		super();
+		this.name = name;
+	}
 
 	public String getName() {
 		return name;
