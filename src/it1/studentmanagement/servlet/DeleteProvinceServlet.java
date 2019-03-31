@@ -1,7 +1,6 @@
 package it1.studentmanagement.servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import it1.studentmanagement.dao.ProvinceDAO;
+import it1.studentmanagement.bus.ProvinceBUS;
 
 @WebServlet("/DeleteProvince")
 public class DeleteProvinceServlet extends HttpServlet {
@@ -21,19 +20,8 @@ public class DeleteProvinceServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int id = Integer.parseInt(request.getParameter("id"));
-		
-		String message = null;
-		ProvinceDAO prvDao = new ProvinceDAO();
-		
-		try {
-			prvDao.deleteProvince(id);
-			message =  "Xóa tỉnh thành công!";
-		} catch (SQLException e) {
-			e.printStackTrace();
-			message =  "Xóa tỉnh không thành công!";
-			message = "\nLỗi: " + e.getMessage();
-		}
-		
+		ProvinceBUS prvBus = new ProvinceBUS();
+		String message = prvBus.delete(id);
 		request.setAttribute("msg", message);
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Home");
 		rd.forward(request, response);

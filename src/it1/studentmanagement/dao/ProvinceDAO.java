@@ -32,7 +32,8 @@ public class ProvinceDAO implements IProvinceDAO{
 		
 		//đóng luôn connection ở đây
 		conn.close();
-
+		pstm.close();
+		result.close();
 		return list;
 	}
 
@@ -46,6 +47,7 @@ public class ProvinceDAO implements IProvinceDAO{
 		pstm.executeUpdate();
 		//đóng luôn connection ở đây
 		conn.close();
+		pstm.close();
 	}
 
 	@Override
@@ -58,6 +60,7 @@ public class ProvinceDAO implements IProvinceDAO{
 		pstm.executeUpdate();
 		//đóng luôn connection ở đây
 		conn.close();
+		pstm.close();
 	}
 
 	@Override
@@ -69,6 +72,7 @@ public class ProvinceDAO implements IProvinceDAO{
 		pstm.executeUpdate();
 		//đóng luôn connection ở đây
 		conn.close();
+		pstm.close();
 	}
 	
 }
