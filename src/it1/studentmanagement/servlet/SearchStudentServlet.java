@@ -1,7 +1,6 @@
 package it1.studentmanagement.servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -11,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import it1.studentmanagement.dao.ProvinceDAO;
-import it1.studentmanagement.dao.StudentDAO;
+import it1.studentmanagement.bus.ProvinceBUS;
+import it1.studentmanagement.bus.StudentBUS;
 import it1.studentmanagement.dto.ProvinceDTO;
 import it1.studentmanagement.dto.StudentDTO;
 
@@ -25,8 +24,8 @@ public class SearchStudentServlet extends HttpServlet {
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String idStdSearch = request.getParameter("idStdSearch");
-		String namePlaceSearch = request.getParameter("namePlaceSearch");
+		String id = request.getParameter("idStdSearch");
+		String place = request.getParameter("namePlaceSearch");
 		
 		int page = 1;
 		int count = 10;
@@ -38,31 +37,18 @@ public class SearchStudentServlet extends HttpServlet {
 		} catch (NumberFormatException e) {
 			
 		}
-		String message = null;
-		StudentDAO stdDao = new StudentDAO();
-		ProvinceDAO prvDao = new ProvinceDAO();
-		List<StudentDTO> listStd = null;
-		List<ProvinceDTO> listPrv = null;
-		
-		try {
-			listStd = stdDao.findStudent(idStdSearch, namePlaceSearch);
-			record = listStd.size();
-			count = record/5 * 5 + 5;
-			listPrv = prvDao.showProvince();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			message = "Lỗi: " + e.getMessage();
-		}
-		
-		
-		request.setAttribute("msg", message);
+		ProvinceBUS prvBus = new ProvinceBUS();
+		StudentBUS stdBus = new StudentBUS();
+		List<StudentDTO> listStd = stdBus.findStudentByIdAndPlace(id, place);
+		List<ProvinceDTO> listPrv = prvBus.findAll();
+		record = listStd.size();
+		count = record/5 * 5 + 5;
 		request.setAttribute("page", page);
 		request.setAttribute("count", count);
 		request.setAttribute("totalPage", totalPage);
 		request.setAttribute("record", record);
-		request.setAttribute("idStdSearch", idStdSearch);
-		request.setAttribute("namePlaceSearch", namePlaceSearch);
+		request.setAttribute("idStdSearch", id);
+		request.setAttribute("namePlaceSearch", place);
 		request.setAttribute("listProvince", listPrv);
 		request.setAttribute("listStudent", listStd);
 

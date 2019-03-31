@@ -1,7 +1,7 @@
 package it1.studentmanagement.bus;
 
-public class FormatName {
-	//Hàm chuẩn hóa tên
+public class FormatString {
+	//Hàm chuẩn hóa chuôi
 	public static String formatName(String s) {
 		s = s.trim();
 		String specialChar = "`~!@#$%^&*()-+=:;[] {}<>?/\\|";
