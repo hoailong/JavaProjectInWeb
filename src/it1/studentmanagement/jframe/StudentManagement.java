@@ -13,7 +13,9 @@ import javax.swing.Timer;
 import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.html.HTMLDocument.Iterator;
 
+import it1.studentmanagement.bus.StudentBUS;
 import it1.studentmanagement.dao.ProvinceDAO;
 import it1.studentmanagement.dao.StudentDAO;
 import it1.studentmanagement.dto.ProvinceDTO;
@@ -27,6 +29,7 @@ import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
@@ -34,8 +37,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JScrollPane;
 import javax.swing.BoxLayout;
+import javax.swing.ButtonGroup;
 import javax.swing.JRadioButton;
 import javax.swing.JList;
+import javax.swing.JComboBox;
 
 public class StudentManagement {
 
@@ -44,11 +49,11 @@ public class StudentManagement {
 	private JTextField txtProvinceName;
 	private static ProvinceDAO provinceDAO = new ProvinceDAO();
 	private static boolean isEditProvince = false;
+	private static boolean isEditStudent = false;
 	private JTable provinceTable;
 	private JTextField txtStudentId;
 	private JTextField txtStudentName;
 	private JTextField txtStudentDob;
-	private JTextField txtStudentProvinceName;
 	private JTextField txtMath;
 	private JTextField txtPhysical;
 	private JTextField txtChemistry;
@@ -162,15 +167,12 @@ public class StudentManagement {
 		
 		JRadioButton rdbtnFemale = new JRadioButton("Female");
 		rdbtnFemale.setEnabled(false);
-		rdbtnFemale.setBounds(603, 30, 72, 25);
+		rdbtnFemale.setBounds(607, 30, 72, 25);
 		studentInfoPanel.add(rdbtnFemale);
 		
-		txtStudentProvinceName = new JTextField();
-		txtStudentProvinceName.setEnabled(false);
-		txtStudentProvinceName.setEditable(false);
-		txtStudentProvinceName.setBounds(120, 130, 242, 22);
-		studentInfoPanel.add(txtStudentProvinceName);
-		txtStudentProvinceName.setColumns(10);
+		ButtonGroup buttonGroup = new ButtonGroup();
+		buttonGroup.add(rdbtnFemale);
+		buttonGroup.add(rdbtnMale);
 		
 		JLabel lblMath = new JLabel("Math:");
 		lblMath.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -239,6 +241,11 @@ public class StudentManagement {
 		studentInfoPanel.add(lblStudentInfomation);
 		lblStudentInfomation.setFont(new Font("Tahoma", Font.BOLD, 20));
 		
+		JComboBox comboBoxStudent = new JComboBox();
+		comboBoxStudent.setBounds(120, 136, 242, 22);
+		comboBoxStudent.setEditable(false);
+		studentInfoPanel.add(comboBoxStudent);
+		
 		
 		JLabel lblStudentList = new JLabel("Student List\r\n");
 		lblStudentList.setForeground(Color.RED);
@@ -267,9 +274,10 @@ public class StudentManagement {
 		studentScrollPane.setViewportView(table);
 		
 		JTextArea textStudentError = new JTextArea();
+		textStudentError.setForeground(Color.BLACK);
+		textStudentError.setFont(new Font("Bookman Old Style", Font.BOLD | Font.ITALIC, 14));
 		textStudentError.setBounds(670, 0, 310, 66);
 		studentPanel.add(textStudentError);
-		textStudentError.setFocusable(false);
 		
 		JPanel studentSearchPanel = new JPanel();
 		studentSearchPanel.setBounds(670, 79, 322, 168);
@@ -636,37 +644,59 @@ public class StudentManagement {
 				rdbtnMale.setSelected(false);
 				rdbtnFemale.setSelected(false);
 				//If gender = 1, it means that gender is male, otherwise it's female
-				if(table.getModel().getValueAt(selectedRowIndex, 3).toString().equals("1")) {
+				boolean isMale = table.getModel().getValueAt(selectedRowIndex, 3).toString().equals("Male");
+				if(isMale) {
 					rdbtnMale.setSelected(true);
 				}else {
 					rdbtnFemale.setSelected(true);
 				}
-				txtStudentProvinceName.setText(table.getModel().getValueAt(selectedRowIndex, 4).toString());
+				
+				
+				comboBoxStudent.setSelectedItem((table.getModel().getValueAt(selectedRowIndex, 4).toString()));
+				comboBoxStudent.updateUI();
 				txtMath.setText(table.getModel().getValueAt(selectedRowIndex, 5).toString());
 				txtChemistry.setText(table.getModel().getValueAt(selectedRowIndex, 6).toString());
 				txtPhysical.setText(table.getModel().getValueAt(selectedRowIndex, 7).toString());
 				txtStudentName.setEnabled(true);
-				txtStudentProvinceName.setEnabled(true);
+				comboBoxStudent.setEnabled(true);
 				txtStudentId.setEnabled(true);
 				txtStudentDob.setEnabled(true);;
 				txtMath.setEnabled(true);
 				txtChemistry.setEnabled(true);
 				txtPhysical.setEnabled(true);
+			
+			
+				ProvinceDAO provinces = new ProvinceDAO();
+				List<ProvinceDTO> provinceList;
+				try {
+					provinceList = provinces.showProvince();
+					for (int i = 0; i < provinceList.size(); i++) {
+						comboBoxStudent.addItem(provinceList.get(i).getName());
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		});
 		
 		btnEditStudent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				txtStudentId.setEditable(true);
-				txtStudentName.setEditable(true);
-				txtStudentDob.setEditable(true);
-				txtStudentProvinceName.setEditable(true);
-				txtMath.setEditable(true);
-				txtChemistry.setEditable(true);
-				txtPhysical.setEditable(true);
-				rdbtnMale.setEnabled(true);
-				rdbtnFemale.setEnabled(true);
-				btnSaveStudent.setEnabled(true);
+				int selectedRow = table.getSelectedRow();
+				if(selectedRow == -1) {
+					textStudentError.setText("You have to choose the student row first");
+				}else {
+					txtStudentId.setEditable(true);
+					txtStudentName.setEditable(true);
+					txtStudentDob.setEditable(true);
+					comboBoxStudent.setEditable(true);
+					txtMath.setEditable(true);
+					txtChemistry.setEditable(true);
+					txtPhysical.setEditable(true);
+					rdbtnMale.setEnabled(true);
+					rdbtnFemale.setEnabled(true);
+					btnSaveStudent.setEnabled(true);
+				}
 			}
 		});
 		
@@ -678,50 +708,60 @@ public class StudentManagement {
 				txtStudentDob.setText("");
 				txtStudentId.requestFocus();
 				txtMath.setText("");
-				txtStudentProvinceName.setText("");
 				txtChemistry.setText("");
 				txtPhysical.setText("");
 				
 				txtStudentId.setEditable(true);
 				txtStudentName.setEditable(true);
 				txtStudentDob.setEditable(true);
-				txtStudentProvinceName.setEditable(true);
 				txtMath.setEditable(true);
 				txtChemistry.setEditable(true);
 				txtPhysical.setEditable(true);
 				rdbtnMale.setEnabled(true);
 				rdbtnFemale.setEnabled(true);
 				btnSaveStudent.setEnabled(true);
+				comboBoxStudent.setEnabled(true);
 			}
 		});
 		
 		btnSaveStudent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				StudentDAO students = new StudentDAO();
-				ProvinceDTO province = new ProvinceDTO(txtStudentProvinceName.getText());
-				StudentDTO student1 = new StudentDTO();
-				if(rdbtnMale.isSelected()) {
-					StudentDTO student = new StudentDTO(Integer.parseInt(txtStudentId.getText()), txtStudentName.getText(), province, 
-							txtStudentDob.getText(), 1, Float.parseFloat(txtMath.getText()),
-							Float.parseFloat(txtPhysical.getText()), Float.parseFloat(txtChemistry.getText()));
+					StudentDTO student = new StudentDTO();
 					try {
-						students.insertStudent(student);
+						if(StudentBUS.checkConstant(Integer.parseInt(txtStudentId.getText()))) {
+							textStudentError.setText("This student ID has existed");
+						}else if(Integer.parseInt(txtStudentId.getText()) < 1000) {
+							textStudentError.setText("Invalid student ID, make sure student ID\n is greater than 10000");
+						}else {
+							ProvinceDTO province = new ProvinceDTO();
+							ProvinceDAO provinces = new ProvinceDAO();
+							List<ProvinceDTO> provinceList = provinces.showProvince();
+							for (int i = 0; i < provinceList.size(); i++) {
+								if(provinceList.get(i).getName().equals(comboBoxStudent.getSelectedItem())){
+									province = provinceList.get(i);
+								}
+							}
+							if(rdbtnMale.isSelected()) {
+								student = new StudentDTO(Integer.parseInt(txtStudentId.getText()), txtStudentName.getText(), province, 
+										txtStudentDob.getText(), 1, Float.parseFloat(txtMath.getText()),
+										Float.parseFloat(txtPhysical.getText()), Float.parseFloat(txtChemistry.getText()));
+							}else {
+								student = new StudentDTO(Integer.parseInt(txtStudentId.getText()), txtStudentName.getText(), province, 
+										txtStudentDob.getText(), 0, Float.parseFloat(txtMath.getText()),
+										Float.parseFloat(txtPhysical.getText()), Float.parseFloat(txtChemistry.getText()));
+							}
+							StudentDAO students = new StudentDAO();
+							students.insertStudent(student);
+							textStudentError.setText("Insert Sucessfully");
+						}
+					} catch (NumberFormatException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
-					}
-				}
-				if(rdbtnFemale.isSelected()) {
-					StudentDTO student = new StudentDTO(Integer.parseInt(txtStudentId.getText()), txtStudentName.getText(), province, 
-							txtStudentDob.getText(), 1, Float.parseFloat(txtMath.getText()),
-							Float.parseFloat(txtPhysical.getText()), Float.parseFloat(txtChemistry.getText()));
-					try {
-						students.insertStudent(student);
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
+					}				
+				addRowToStudentTable();
 			}
 		});
 	}
@@ -785,5 +825,4 @@ public class StudentManagement {
 		}
 		table.setModel(model);
 	}
-
 }
