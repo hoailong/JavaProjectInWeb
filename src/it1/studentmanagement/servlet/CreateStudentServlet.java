@@ -37,8 +37,30 @@ public class CreateStudentServlet extends HttpServlet {
 		float chemistry = Float.parseFloat(request.getParameter("chemistry"));
 		StudentDTO stdDTO = new StudentDTO(id, name, new ProvinceDTO("", placeId), birth, gender, math, physical, chemistry);
 		
+<<<<<<< HEAD
 		StudentBUS stdBus = new StudentBUS();
 		String message = stdBus.insert(stdDTO);
+=======
+		String message = null;
+		StudentDAO stdDao = new StudentDAO();
+		
+		try {
+			//kiểm tra xem mã thí sinh đã tồn tại hay chưa 
+			if (StudentBUS.checkConstant(id)) {
+				message =  "Thêm thí sinh mới không thành công! Mã thí sinh đã tồn tại!";
+			}
+			//nếu chưa tồn tại thì tiến hành thêm
+			else {
+				stdDao.insertStudent(stdDTO);
+				message =  "Thêm thí sinh mới thành công!";
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			message =  "Thêm thí sinh mới không thành công!";
+			message = "\nLỗi: " + e.getMessage();
+		}
+		
+>>>>>>> origin/nam
 		request.setAttribute("msg", message);
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Home");
 		rd.forward(request, response);
