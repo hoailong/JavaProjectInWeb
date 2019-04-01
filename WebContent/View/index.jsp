@@ -168,8 +168,8 @@
 			<table border='1'>
 				<th colspan="2"><h1>Thêm thí sinh mới</h1></th>
 				<tr>
-					<td><label for="studentID">Mã thí sinh (*)</label></td>
-					<td><input type="number" min="10000" id="studentID" name="studentID" value="" required="required"></td>
+					<td><label for="studentID">Mã thí sinh </label></td>
+					<td><input type="number" min="10000" id="studentID" name="studentID" value="" disabled="disabled"></td>
 					
 				</tr>
 				<tr>
@@ -231,8 +231,8 @@
 			<table border='1'>
 				<th colspan="2"><h1>Thông tin thí sinh</h1></th>
 				<tr>
-					<td><label for="studentID_">Mã thí sinh (*)</label></td>
-					<td><input type="number" min="10000" id="studentID_" name="studentID" value="" required="required"></td>
+					<td><label for="studentID_">Mã thí sinh </label></td>
+					<td><input type="number" min="10000" id="studentID_" name="studentID" value="" required="required" disabled="disabled"></td>
 					
 				</tr>
 				<tr>
@@ -322,7 +322,7 @@
 			<table border='1' style="width:20%">
 				<th colspan="2"><h1>Update tỉnh</h1></th>
 				<tr>
-					<td><label for="provinceId_">Mã tỉnh (*)</label></td>
+					<td><label for="provinceId_">Mã tỉnh </label></td>
 					<td><input type="text" id="provinceId_" name="provinceId" value="" disabled="disable"></td>
 				</tr>
 				<tr>
@@ -347,7 +347,7 @@
 			<table border='1' style="width:20%">
 				<th colspan="2"><h1>Thêm Tỉnh Mới</h1></th>
 				<tr>
-					<td><label for="provinceId">Mã tỉnh (*)</label></td>
+					<td><label for="provinceId">Mã tỉnh </label></td>
 					<td><input type="text" id="provinceId" name="provinceId" value="" disabled="disable"></td>
 				</tr>
 				<tr>
