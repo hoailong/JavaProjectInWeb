@@ -106,7 +106,9 @@ public class StudentManagement {
 		frame.getContentPane().add(tabbedPane);
 		
 		txtMessage = new JTextArea();
-		txtMessage.setBounds(10, 500, 1132, 80);
+		txtMessage.setForeground(Color.RED);
+		txtMessage.setLineWrap(true);
+		txtMessage.setBounds(10, 500, 1124, 80);
 		frame.getContentPane().add(txtMessage);
 		txtMessage.setFont(new Font("Monospaced", Font.BOLD, 20));
 		
@@ -139,98 +141,40 @@ public class StudentManagement {
 		tabbedPane.addTab("Province", null, provincePanel, null);
 		provincePanel.setLayout(null);
 		
-		JLabel lblProvinceID = new JLabel("Province ID:");
-		lblProvinceID.setBounds(535, 89, 80, 14);
-		lblProvinceID.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		provincePanel.add(lblProvinceID);
-		
-		JLabel lblProvinceName = new JLabel("Province Name:");
-		lblProvinceName.setBounds(535, 117, 124, 14);
-		lblProvinceName.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		provincePanel.add(lblProvinceName);
-		
-		txtProvinceID = new JTextField();
-		txtProvinceID.setBounds(669, 86, 225, 20);
-		txtProvinceID.setEditable(false);
-		txtProvinceID.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		provincePanel.add(txtProvinceID);
-		txtProvinceID.setColumns(10);
-		
-		txtProvinceName = new JTextField();
-		txtProvinceName.setBounds(669, 116, 225, 20);
-		txtProvinceName.setEditable(false);
-		txtProvinceName.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtProvinceName.setColumns(10);
-		provincePanel.add(txtProvinceName);
-		
-		JButton btnInsertProvince = new JButton("Insert");
-		btnInsertProvince.setBounds(535, 174, 89, 23);
-
-		btnInsertProvince.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		provincePanel.add(btnInsertProvince);
-		
-		JButton btnEditProvince = new JButton("Edit");
-		btnEditProvince.setBounds(669, 176, 89, 23);
-		
-		btnEditProvince.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		provincePanel.add(btnEditProvince);
-		
 		JPanel confirmDelProvincePanel = new JPanel();
-		confirmDelProvincePanel.setBounds(77, 258, 817, 195);
+		confirmDelProvincePanel.setBounds(528, 256, 599, 195);
 		provincePanel.add(confirmDelProvincePanel);
 		confirmDelProvincePanel.setLayout(null);
-		
-		JButton btnDeleteProvince = new JButton("Delete");
-		btnDeleteProvince.setBounds(805, 176, 89, 23);
-	
-		btnDeleteProvince.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		provincePanel.add(btnDeleteProvince);
-		
-		JButton btnSaveProvince = new JButton("Save");
-		btnSaveProvince.setBounds(535, 222, 89, 23);
-		
-		btnSaveProvince.setEnabled(false);
-		btnSaveProvince.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		provincePanel.add(btnSaveProvince);
-		
-		
-		
-		JButton btnCancelProvince = new JButton("Cancel");
-		btnCancelProvince.setBounds(669, 224, 89, 23);
-		
-		
-		btnCancelProvince.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		provincePanel.add(btnCancelProvince);
 		
 		JButton btnConfirmDel = new JButton("Confirm");
 		
 		btnConfirmDel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnConfirmDel.setBounds(250, 140, 117, 23);
+		btnConfirmDel.setBounds(140, 140, 117, 23);
 		confirmDelProvincePanel.add(btnConfirmDel);
 		
 		JButton btnCancelDel = new JButton("Cancel");
 		btnCancelDel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnCancelDel.setBounds(450, 140, 117, 23);
+		btnCancelDel.setBounds(340, 140, 117, 23);
 		confirmDelProvincePanel.add(btnCancelDel);
 		
 		JLabel lblYouAreDeleting = new JLabel("You are deleting province:");
 		lblYouAreDeleting.setForeground(Color.RED);
 		lblYouAreDeleting.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblYouAreDeleting.setBounds(211, 11, 241, 36);
+		lblYouAreDeleting.setBounds(101, 11, 241, 36);
 		confirmDelProvincePanel.add(lblYouAreDeleting);
 		
 		JLabel lblDelProvince = new JLabel("Hồ Chí Minh");
 		lblDelProvince.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblDelProvince.setBounds(477, 11, 206, 36);
+		lblDelProvince.setBounds(367, 11, 206, 36);
 		confirmDelProvincePanel.add(lblDelProvince);
 		
 		JLabel lblConfirmDel = new JLabel("Please choose \"Confirm\" to delete");
 		lblConfirmDel.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblConfirmDel.setBounds(253, 73, 314, 36);
+		lblConfirmDel.setBounds(143, 73, 314, 36);
 		confirmDelProvincePanel.add(lblConfirmDel);
 		
 		JScrollPane provinceScrollPane = new JScrollPane();
-		provinceScrollPane.setBounds(77, 11, 441, 234);
+		provinceScrollPane.setBounds(10, 68, 508, 383);
 		provincePanel.add(provinceScrollPane);
 		
 		provinceTable = new JTable() {;
@@ -240,6 +184,7 @@ public class StudentManagement {
 			       return false;
 			}
 		};
+		provinceTable.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
 		provinceTable.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -250,95 +195,168 @@ public class StudentManagement {
 		));
 		provinceScrollPane.setViewportView(provinceTable);
 		
-		confirmDelProvincePanel.setVisible(false);
+		JPanel provinceInformationPane = new JPanel();
+		provinceInformationPane.setBounds(528, 68, 599, 177);
+		provincePanel.add(provinceInformationPane);
+		provinceInformationPane.setLayout(null);
 		
+		JLabel lblProvinceID = new JLabel("Province ID:");
+		lblProvinceID.setBounds(10, 64, 76, 17);
+		provinceInformationPane.add(lblProvinceID);
+		lblProvinceID.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		// Event listener
-		btnCancelProvince.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				txtProvinceName.setEditable(false);
-				txtProvinceID.setText("");
-				txtProvinceName.setText("");
-				btnSaveProvince.setEnabled(false);
-				confirmDelProvincePanel.setVisible(false);
-			}
-		});
+		JLabel lblProvinceName = new JLabel("Province Name:");
+		lblProvinceName.setBounds(10, 92, 97, 17);
+		provinceInformationPane.add(lblProvinceName);
+		lblProvinceName.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
-		btnInsertProvince.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				txtProvinceID.setText("");
-				txtProvinceName.setText("");
-				txtProvinceName.setEditable(true);
-				txtProvinceName.requestFocus();
-				btnSaveProvince.setEnabled(true);
-				isEditProvince = false;
-			}
-		});
+		txtProvinceID = new JTextField();
+		txtProvinceID.setBounds(132, 61, 450, 23);
+		provinceInformationPane.add(txtProvinceID);
+		txtProvinceID.setEditable(false);
+		txtProvinceID.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtProvinceID.setColumns(10);
 		
-		btnEditProvince.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				DefaultTableModel model = (DefaultTableModel) provinceTable.getModel();
-				int selectedRowIndex = provinceTable.getSelectedRow();
-				if (selectedRowIndex != -1) {
-					btnSaveProvince.setEnabled(true);
-					isEditProvince = true;
-					txtProvinceName.setEditable(true);
-					txtProvinceName.requestFocus();
-				} else {
-					txtMessage.setText("You have to choose a province to edit.");
-					timer.start();
-				}
-			}
-		});
+		txtProvinceName = new JTextField();
+		txtProvinceName.setBounds(132, 89, 450, 23);
+		provinceInformationPane.add(txtProvinceName);
+		txtProvinceName.setEditable(false);
+		txtProvinceName.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		txtProvinceName.setColumns(10);
 		
-		btnSaveProvince.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if (txtProvinceName.getText().length() == 0) {
-					txtMessage.setText("Province name can't be null");
-					txtProvinceName.requestFocus();
-				} else {
-					if (!isEditProvince) {
-						try {
-							provinceDAO.insertProvince(txtProvinceName.getText());
-							txtMessage.setText("Insert new province success!");
-						} catch (SQLException e) {
-							txtMessage.setText("Insert new province failed! SQL Exception has occured.");
+		JButton btnInsertProvince = new JButton("Insert");
+		btnInsertProvince.setBounds(10, 141, 97, 25);
+		provinceInformationPane.add(btnInsertProvince);
+		
+				btnInsertProvince.setFont(new Font("Tahoma", Font.PLAIN, 14));
+				
+				JButton btnEditProvince = new JButton("Edit");
+				btnEditProvince.setBounds(132, 141, 97, 25);
+				provinceInformationPane.add(btnEditProvince);
+				
+				btnEditProvince.setFont(new Font("Tahoma", Font.PLAIN, 14));
+				
+				JButton btnDeleteProvince = new JButton("Delete");
+				btnDeleteProvince.setBounds(252, 141, 97, 25);
+				provinceInformationPane.add(btnDeleteProvince);
+				
+					btnDeleteProvince.setFont(new Font("Tahoma", Font.PLAIN, 14));
+					
+					JButton btnSaveProvince = new JButton("Save");
+					btnSaveProvince.setBounds(369, 141, 97, 25);
+					provinceInformationPane.add(btnSaveProvince);
+					
+					btnSaveProvince.setEnabled(false);
+					btnSaveProvince.setFont(new Font("Tahoma", Font.PLAIN, 14));
+					
+					
+					
+					JButton btnCancelProvince = new JButton("Cancel");
+					btnCancelProvince.setBounds(485, 141, 97, 25);
+					provinceInformationPane.add(btnCancelProvince);
+					
+					
+					btnCancelProvince.setFont(new Font("Tahoma", Font.PLAIN, 14));
+					
+					JLabel lblProvinceInformation = new JLabel("Province Information");
+					lblProvinceInformation.setFont(new Font("Tahoma", Font.PLAIN, 18));
+					lblProvinceInformation.setBounds(217, 11, 165, 39);
+					provinceInformationPane.add(lblProvinceInformation);
+					
+					JLabel lblProvinceManagement = new JLabel("Province Management");
+					lblProvinceManagement.setFont(new Font("Tahoma", Font.PLAIN, 24));
+					lblProvinceManagement.setBounds(443, 11, 235, 32);
+					provincePanel.add(lblProvinceManagement);
+					
+					
+					// Event listener
+					btnCancelProvince.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							txtProvinceName.setEditable(false);
+							txtProvinceID.setText("");
+							txtProvinceName.setText("");
+							btnSaveProvince.setEnabled(false);
+							confirmDelProvincePanel.setVisible(false);
 						}
-					} else {
-						try {
-							provinceDAO.updateProvince(txtProvinceName.getText().toString(), Integer.parseInt(txtProvinceID.getText().toString()));
-							txtMessage.setText("Edit province success!");
-						} catch (NumberFormatException e) {
-							txtMessage.setText("Edit failed! Number Format Exception occured.");
-							e.printStackTrace();
-						} catch (SQLException e) {
-							txtMessage.setText("Edit failed! SQL Exception occured.");
-							e.printStackTrace();
+					});
+					
+					btnSaveProvince.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							if (txtProvinceName.getText().length() == 0) {
+								txtMessage.setText("Province name can't be null");
+								txtProvinceName.requestFocus();
+							} else {
+								if (!isEditProvince) {
+									try {
+										provinceDAO.insertProvince(txtProvinceName.getText());
+										txtMessage.setText("Insert new province success!");
+									} catch (SQLException e) {
+										txtMessage.setText("Insert new province failed! SQL Exception has occured.");
+									}
+								} else {
+									try {
+										provinceDAO.updateProvince(txtProvinceName.getText().toString(), Integer.parseInt(txtProvinceID.getText().toString()));
+										txtMessage.setText("Edit province success!");
+									} catch (NumberFormatException e) {
+										txtMessage.setText("Edit failed! Number Format Exception occured.");
+										e.printStackTrace();
+									} catch (SQLException e) {
+										txtMessage.setText("Edit failed! SQL Exception occured.");
+										e.printStackTrace();
+									}
+								}
+								addRowToProvinceTable();
+								btnSaveProvince.setEnabled(false);
+								txtProvinceID.setText("");
+								txtProvinceName.setText("");
+								txtProvinceName.setEditable(false);
+							}
+							timer.start();
+						}
+					});
+					
+					btnDeleteProvince.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							DefaultTableModel model = (DefaultTableModel) provinceTable.getModel();
+							int selectedRowIndex = provinceTable.getSelectedRow();
+							if (selectedRowIndex != -1) {
+								confirmDelProvincePanel.setVisible(true);
+								lblDelProvince.setText(model.getValueAt(selectedRowIndex, 1).toString());
+							} else {
+								txtMessage.setText("You have to choose a province to delete.");
+								timer.start();
+							}
+						}
+					});
+				
+				btnEditProvince.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						DefaultTableModel model = (DefaultTableModel) provinceTable.getModel();
+						int selectedRowIndex = provinceTable.getSelectedRow();
+						if (selectedRowIndex != -1) {
+							btnSaveProvince.setEnabled(true);
+							isEditProvince = true;
+							txtProvinceName.setEditable(true);
+							txtProvinceName.requestFocus();
+						} else {
+							txtMessage.setText("You have to choose a province to edit.");
+							timer.start();
 						}
 					}
-					addRowToProvinceTable();
-					btnSaveProvince.setEnabled(false);
-					txtProvinceID.setText("");
-					txtProvinceName.setText("");
-					txtProvinceName.setEditable(false);
-				}
-				timer.start();
-			}
-		});
+				});
+				
+				btnInsertProvince.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						txtProvinceID.setText("");
+						txtProvinceName.setText("");
+						txtProvinceName.setEditable(true);
+						txtProvinceName.requestFocus();
+						btnSaveProvince.setEnabled(true);
+						isEditProvince = false;
+					}
+				});
 		
-		btnDeleteProvince.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				DefaultTableModel model = (DefaultTableModel) provinceTable.getModel();
-				int selectedRowIndex = provinceTable.getSelectedRow();
-				if (selectedRowIndex != -1) {
-					confirmDelProvincePanel.setVisible(true);
-					lblDelProvince.setText(model.getValueAt(selectedRowIndex, 1).toString());
-				} else {
-					txtMessage.setText("You have to choose a province to delete.");
-					timer.start();
-				}
-			}
-		});
+		confirmDelProvincePanel.setVisible(false);
 		
 		btnConfirmDel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
