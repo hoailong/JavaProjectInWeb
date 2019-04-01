@@ -79,11 +79,14 @@ public class StudentDAO implements IStudentDAO {
 		//tạo mới connection ở đây:
 		Connection conn = DBUtil.getSqlConn();
 		String sql = "SELECT student_id, s.name, s.dob, s.gender, s.math, s.physical, s.chemistry, p.name as province_name, p.province_id  "
-				+ "FROM student s,province p WHERE s.province_id = p.province_id AND s.student_id LIKE ? AND  p.province_id LIKE ?";
+				+ "FROM student s,province p "
+				+ "WHERE s.province_id = p.province_id AND s.student_id LIKE '"+idSearch+"%' AND  p.name LIKE '"+placeSearch+"%'";
+		/*String sql = "SELECT student_id, s.name, s.dob, s.gender, s.math, s.physical, s.chemistry, p.name as province_name, p.province_id  "
+				+ "FROM student s,province p WHERE s.province_id = p.province_id AND s.student_id LIKE ? AND  p.name LIKE ?";*/
 		List<StudentDTO> list = new ArrayList<StudentDTO>();
 		PreparedStatement pstm = conn.prepareStatement(sql);
-		pstm.setString(1, "'"+idSearch+"%'");
-		pstm.setString(2, "'"+placeSearch+"%'");
+		/*pstm.setString(1, "'"+idSearch+"%'");
+		pstm.setString(2, "'"+placeSearch+"%'");*/
 		ResultSet result = pstm.executeQuery();
 		while (result.next()) {
 			int provinceId = result.getInt("province_id");

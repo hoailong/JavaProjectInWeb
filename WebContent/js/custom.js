@@ -95,7 +95,7 @@ $(document).ready(function(){
 	$('.prvForm .prvTr').click(function(){
 		var id = $(this).find('td:nth-child(1)').text();
 		var name = $(this).find('td:nth-child(2)').text();
-		$(".editPrvFrm").attr("action","EditProvince?id="+id+"&name="+name);
+		$(".editPrvFrm").attr("action","EditProvince?id="+id);
 		$("#deleteLink").attr("href","DeleteProvince?id="+id);
 		$('.editPrv #provinceId_').val(id);
 		$('.editPrv #provinceName_').val(name);

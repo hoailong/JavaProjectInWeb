@@ -54,6 +54,7 @@ public class StudentBUS implements IStudentBUS {
 			stdDao.insertStudent(student);
 			return "Thêm thí sinh mới thành công!";
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return "Thêm thí sinh mới không thành công! " + e.toString();
 		}
 	}
@@ -65,6 +66,7 @@ public class StudentBUS implements IStudentBUS {
 			stdDao.updateStudent(student);
 			return "Cập nhật thông tin thành công!";
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return "Cập nhật thông tin không thành công! " + e.toString();
 		}
 	}
@@ -75,6 +77,7 @@ public class StudentBUS implements IStudentBUS {
 			stdDao.deleteStudent(id);
 			return "Xóa thí sinh thành công!";
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return "Xóa thí sinh không thành công! " + e.toString();
 		}
 	}

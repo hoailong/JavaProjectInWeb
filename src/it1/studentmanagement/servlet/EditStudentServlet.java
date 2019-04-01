@@ -27,7 +27,7 @@ public class EditStudentServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		
 		//lấy thông tin đã nhập trên form
-		int id = Integer.parseInt(request.getParameter("studentID"));
+		int id = Integer.parseInt(request.getParameter("id"));
 		String name = request.getParameter("studentName");
 		String birth = request.getParameter("studentBirth");
 		int gender = Integer.parseInt(request.getParameter("studentGender"));
