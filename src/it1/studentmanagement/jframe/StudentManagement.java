@@ -15,6 +15,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.html.HTMLDocument.Iterator;
 
+import it1.studentmanagement.bus.ProvinceBUS;
 import it1.studentmanagement.bus.StudentBUS;
 import it1.studentmanagement.dao.ProvinceDAO;
 import it1.studentmanagement.dao.StudentDAO;
@@ -35,6 +36,8 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.font.TextMeasurer;
+
 import javax.swing.JScrollPane;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -57,10 +60,12 @@ public class StudentManagement {
 	private JTextField txtMath;
 	private JTextField txtPhysical;
 	private JTextField txtChemistry;
-	private JTextField textField_7;
+	private JTextField txtStudenSeachId;
 	private JTable table;
 	private JTabbedPane tabbedPane;
 	private JTextArea txtMessage;
+	private JComboBox comboBoxStudent;
+	private JComboBox cbProvinceStudenSearch;
 	private Timer timer = new Timer(5000, new ActionListener() {
 
 		@Override
@@ -91,23 +96,42 @@ public class StudentManagement {
 	 */
 	public StudentManagement() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 1015, 627);
+		frame.setBounds(100, 100, 1160, 627);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setLocationRelativeTo(null);
+		
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(0, 0, 997, 490);
+		tabbedPane.setBounds(0, 0, 1142, 490);
 		frame.getContentPane().add(tabbedPane);
 		
 		txtMessage = new JTextArea();
-		txtMessage.setBounds(10, 500, 975, 80);
+		txtMessage.setBounds(10, 500, 1132, 80);
 		frame.getContentPane().add(txtMessage);
 		txtMessage.setFont(new Font("Monospaced", Font.BOLD, 20));
 		
 		initializeStudent();
 		initializeProvince();
 		initializeAbout();
+		addProvinceNameComboBox();
+		
 		addRowToProvinceTable();
 		addRowToStudentTable();
+	}
+
+	private void addProvinceNameComboBox() {
+		ProvinceDAO provinces = new ProvinceDAO();
+		List<ProvinceDTO> provinceList;
+		try {
+			provinceList = provinces.showProvince();
+			for (int i = 0; i < provinceList.size(); i++) {
+				comboBoxStudent.addItem(provinceList.get(i).getName());
+				cbProvinceStudenSearch.addItem(provinceList.get(i).getName());
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void initializeProvince() {
@@ -435,7 +459,7 @@ public class StudentManagement {
 		studentPanel.add(label_1);
 		
 		JPanel studentInfoPanel = new JPanel();
-		studentInfoPanel.setBounds(12, 266, 968, 190);
+		studentInfoPanel.setBounds(12, 261, 1125, 190);
 		studentPanel.add(studentInfoPanel);
 		studentInfoPanel.setLayout(null);
 		
@@ -445,7 +469,6 @@ public class StudentManagement {
 		lblStudentID.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		txtStudentId = new JTextField();
-		txtStudentId.setEnabled(false);
 		txtStudentId.setEditable(false);
 		txtStudentId.setBounds(120, 31, 242, 22);
 		studentInfoPanel.add(txtStudentId);
@@ -462,14 +485,12 @@ public class StudentManagement {
 		lblDayOfBirth.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		
 		txtStudentName = new JTextField();
-		txtStudentName.setEnabled(false);
 		txtStudentName.setEditable(false);
 		txtStudentName.setBounds(120, 66, 242, 22);
 		studentInfoPanel.add(txtStudentName);
 		txtStudentName.setColumns(10);
 		
 		txtStudentDob = new JTextField();
-		txtStudentDob.setEnabled(false);
 		txtStudentDob.setEditable(false);
 		txtStudentDob.setBounds(120, 101, 242, 22);
 		studentInfoPanel.add(txtStudentDob);
@@ -515,14 +536,12 @@ public class StudentManagement {
 		studentInfoPanel.add(lblChemistry);
 		
 		txtMath = new JTextField();
-		txtMath.setEnabled(false);
 		txtMath.setEditable(false);
 		txtMath.setBounds(527, 59, 142, 22);
 		studentInfoPanel.add(txtMath);
 		txtMath.setColumns(10);
 		
 		txtPhysical = new JTextField();
-		txtPhysical.setEnabled(false);
 		txtPhysical.setEditable(false);
 		txtPhysical.setBounds(527, 90, 142, 22);
 		studentInfoPanel.add(txtPhysical);
@@ -549,10 +568,6 @@ public class StudentManagement {
 		studentInfoPanel.add(btnEditStudent);
 		
 		JButton btnDeleteStudent = new JButton("Delete");
-		btnDeleteStudent.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		btnDeleteStudent.setBounds(338, 165, 97, 25);
 		studentInfoPanel.add(btnDeleteStudent);
 		
@@ -562,25 +577,66 @@ public class StudentManagement {
 		
 		JLabel lblStudentInfomation = new JLabel("Student Information");
 		lblStudentInfomation.setForeground(Color.BLACK);
-		lblStudentInfomation.setBounds(341, 0, 218, 16);
+		lblStudentInfomation.setBounds(327, 0, 218, 16);
 		studentInfoPanel.add(lblStudentInfomation);
 		lblStudentInfomation.setFont(new Font("Tahoma", Font.BOLD, 20));
 		
-		JComboBox comboBoxStudent = new JComboBox();
+		comboBoxStudent = new JComboBox();
 		comboBoxStudent.setBounds(120, 136, 242, 22);
 		comboBoxStudent.setEditable(false);
 		studentInfoPanel.add(comboBoxStudent);
+		
+		JPanel studentDelConfirmPanel = new JPanel();
+		studentDelConfirmPanel.setBounds(681, 0, 444, 190);
+		studentInfoPanel.add(studentDelConfirmPanel);
+		studentDelConfirmPanel.setVisible(false);
+		studentDelConfirmPanel.setLayout(null);
+		
+		JLabel lblConfirmDelTitle = new JLabel("You are deleting student:");
+		lblConfirmDelTitle.setForeground(Color.RED);
+		lblConfirmDelTitle.setFont(new Font("Tahoma", Font.BOLD, 18));
+		lblConfirmDelTitle.setBounds(71, 0, 241, 36);
+		studentDelConfirmPanel.add(lblConfirmDelTitle);
+		
+		JLabel lblStudentNameDel = new JLabel("Name:");
+		lblStudentNameDel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblStudentNameDel.setForeground(Color.BLACK);
+		lblStudentNameDel.setBounds(12, 95, 73, 36);
+		studentDelConfirmPanel.add(lblStudentNameDel);
+		
+		JLabel lbIStudentIdDel = new JLabel("ID:");
+		lbIStudentIdDel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lbIStudentIdDel.setBounds(12, 64, 44, 31);
+		studentDelConfirmPanel.add(lbIStudentIdDel);
+		
+		JLabel lblStudentIdDisplay = new JLabel("New label");
+		lblStudentIdDisplay.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblStudentIdDisplay.setBounds(93, 71, 219, 16);
+		studentDelConfirmPanel.add(lblStudentIdDisplay);
+		
+		JLabel lblStudentNameDisplay = new JLabel("New label");
+		lblStudentNameDisplay.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblStudentNameDisplay.setBounds(93, 105, 219, 16);
+		studentDelConfirmPanel.add(lblStudentNameDisplay);
+		
+		JButton btnCancelDel = new JButton("Cancel");
+		btnCancelDel.setBounds(215, 165, 97, 25);
+		studentDelConfirmPanel.add(btnCancelDel);
+		
+		JButton btnConfirmDel = new JButton("Confirm");
+		btnConfirmDel.setBounds(53, 165, 97, 25);
+		studentDelConfirmPanel.add(btnConfirmDel);
 		
 		
 		JLabel lblStudentList = new JLabel("Student List\r\n");
 		lblStudentList.setForeground(Color.BLACK);
 		lblStudentList.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblStudentList.setBounds(272, 13, 128, 16);
+		lblStudentList.setBounds(354, 8, 128, 16);
 		studentPanel.add(lblStudentList);
 		
 		
 		JScrollPane studentScrollPane = new JScrollPane(table);
-		studentScrollPane.setBounds(12, 42, 646, 206);
+		studentScrollPane.setBounds(12, 37, 803, 211);
 		studentPanel.add(studentScrollPane);
 		table = new JTable() {;
 			@Override
@@ -599,7 +655,7 @@ public class StudentManagement {
 		studentScrollPane.setViewportView(table);
 		
 		JPanel studentSearchPanel = new JPanel();
-		studentSearchPanel.setBounds(670, 0, 310, 248);
+		studentSearchPanel.setBounds(827, 0, 310, 248);
 		studentPanel.add(studentSearchPanel);
 		studentSearchPanel.setLayout(null);
 		
@@ -623,10 +679,10 @@ public class StudentManagement {
 		lblProvinceName_1.setBounds(12, 87, 109, 16);
 		studentSearchPanel.add(lblProvinceName_1);
 		
-		textField_7 = new JTextField();
-		textField_7.setBounds(121, 54, 157, 22);
-		studentSearchPanel.add(textField_7);
-		textField_7.setColumns(10);
+		txtStudenSeachId = new JTextField();
+		txtStudenSeachId.setBounds(121, 54, 177, 22);
+		studentSearchPanel.add(txtStudenSeachId);
+		txtStudenSeachId.setColumns(10);
 		
 		JList list = new JList();
 		list.setValueIsAdjusting(true);
@@ -637,9 +693,9 @@ public class StudentManagement {
 		btnSearch.setBounds(201, 123, 97, 25);
 		studentSearchPanel.add(btnSearch);
 		
-		JLabel lblHasagiDzo = new JLabel("HASAGI DZO");
-		lblHasagiDzo.setBounds(34, 178, 177, 16);
-		studentSearchPanel.add(lblHasagiDzo);
+		cbProvinceStudenSearch = new JComboBox();
+		cbProvinceStudenSearch.setBounds(121, 85, 177, 22);
+		studentSearchPanel.add(cbProvinceStudenSearch);
 		
 		table.addMouseListener(new MouseAdapter() {
 			@Override
@@ -659,7 +715,6 @@ public class StudentManagement {
 					rdbtnFemale.setSelected(true);
 				}
 				
-				
 				comboBoxStudent.setSelectedItem((table.getModel().getValueAt(selectedRowIndex, 4).toString()));
 				comboBoxStudent.updateUI();
 				txtMath.setText(table.getModel().getValueAt(selectedRowIndex, 5).toString());
@@ -672,24 +727,12 @@ public class StudentManagement {
 				txtMath.setEnabled(true);
 				txtChemistry.setEnabled(true);
 				txtPhysical.setEnabled(true);
-			
-			
-				ProvinceDAO provinces = new ProvinceDAO();
-				List<ProvinceDTO> provinceList;
-				try {
-					provinceList = provinces.showProvince();
-					for (int i = 0; i < provinceList.size(); i++) {
-						comboBoxStudent.addItem(provinceList.get(i).getName());
-					}
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 			}
 		});
 		
 		btnEditStudent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				isEditStudent = true;
 				int selectedRow = table.getSelectedRow();
 				if(selectedRow == -1) {
 					txtMessage.setText("You have to choose the student row first");
@@ -710,7 +753,9 @@ public class StudentManagement {
 		
 		btnInsertStudent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				btnSaveStudent.setEnabled(true);
+				isEditStudent = false;
+				txtMessage.setText("Please insert a student");
+				timer.start();
 				txtStudentName.setText("");
 				txtStudentId.setText("");
 				txtStudentDob.setText("");
@@ -725,6 +770,8 @@ public class StudentManagement {
 				txtMath.setEditable(true);
 				txtChemistry.setEditable(true);
 				txtPhysical.setEditable(true);
+				
+				btnSaveStudent.setEnabled(true);
 				rdbtnMale.setEnabled(true);
 				rdbtnFemale.setEnabled(true);
 				btnSaveStudent.setEnabled(true);
@@ -735,39 +782,134 @@ public class StudentManagement {
 		btnSaveStudent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 					StudentDTO student = new StudentDTO();
+					String message;
 					try {
-						if(StudentBUS.checkConstant(Integer.parseInt(txtStudentId.getText()))) {
-							txtMessage.setText("This student ID has existed");
-						}else if(Integer.parseInt(txtStudentId.getText()) < 10000) {
-							txtMessage.setText("Invalid student ID, make sure student ID\n is greater than 10000");
-						}else {
-							ProvinceDTO province = new ProvinceDTO();
-							ProvinceDAO provinces = new ProvinceDAO();
-							List<ProvinceDTO> provinceList = provinces.showProvince();
-							for (int i = 0; i < provinceList.size(); i++) {
-								if(provinceList.get(i).getName().equals(comboBoxStudent.getSelectedItem())){
-									province = provinceList.get(i);
-								}
+						ProvinceDTO province = new ProvinceDTO();
+						ProvinceBUS provinceBUS = new ProvinceBUS();
+						List<ProvinceDTO> provinceList = provinceBUS.findAll();
+						for (int i = 0; i < provinceList.size(); i++) {
+							if(provinceList.get(i).getName().equals(comboBoxStudent.getSelectedItem())){
+								province = provinceList.get(i);
 							}
-							if(rdbtnMale.isSelected()) {
-								student = new StudentDTO(Integer.parseInt(txtStudentId.getText()), txtStudentName.getText(), province, 
-										txtStudentDob.getText(), 1, Float.parseFloat(txtMath.getText()),
-										Float.parseFloat(txtPhysical.getText()), Float.parseFloat(txtChemistry.getText()));
-							}else {
-								student = new StudentDTO(Integer.parseInt(txtStudentId.getText()), txtStudentName.getText(), province, 
-										txtStudentDob.getText(), 0, Float.parseFloat(txtMath.getText()),
-										Float.parseFloat(txtPhysical.getText()), Float.parseFloat(txtChemistry.getText()));
-							}
-							StudentDAO students = new StudentDAO();
-							students.insertStudent(student);
-							txtMessage.setText("Insert Sucessfully");
 						}
+						if(rdbtnMale.isSelected()) {
+							student = new StudentDTO(Integer.parseInt(txtStudentId.getText()), txtStudentName.getText(), province, 
+									txtStudentDob.getText(), 1, Float.parseFloat(txtMath.getText()),
+									Float.parseFloat(txtPhysical.getText()), Float.parseFloat(txtChemistry.getText()));
+						}else {
+							student = new StudentDTO(Integer.parseInt(txtStudentId.getText()), txtStudentName.getText(), province, 
+									txtStudentDob.getText(), 0, Float.parseFloat(txtMath.getText()),
+									Float.parseFloat(txtPhysical.getText()), Float.parseFloat(txtChemistry.getText()));
+						}
+						StudentBUS studentsBUS = new StudentBUS();
+						
+						if(!isEditStudent){
+							message = studentsBUS.insert(student);
+							txtMessage.setText(message);
+						}else {
+							message = studentsBUS.update(student);
+							txtMessage.setText(message);
+						}
+					
 					} catch (NumberFormatException e) {
 						e.printStackTrace();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}				
+					}		
+					addRowToStudentTable();
+					timer.start();
+			}
+		});
+		
+		btnCancelStudent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				txtStudentId.setEditable(false);
+				txtStudentName.setEditable(false);
+				txtStudentDob.setEditable(false);
+				txtMath.setEditable(false);
+				txtChemistry.setEditable(false);
+				txtPhysical.setEditable(false);
+				
+				btnSaveStudent.setEnabled(false);
+				rdbtnMale.setEnabled(false);
+				rdbtnFemale.setEnabled(false);
+				btnSaveStudent.setEnabled(false);
+				comboBoxStudent.setEnabled(false);
+				
+				txtStudentName.setText("");
+				txtStudentId.setText("");
+				txtStudentDob.setText("");
+				txtStudentId.requestFocus();
+				txtMath.setText("");
+				txtChemistry.setText("");
+				txtPhysical.setText("");
+				
 				addRowToStudentTable();
+			}
+		});
+		
+		btnDeleteStudent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int selectedRow = table.getSelectedRow();
+				if(selectedRow == -1) {
+					txtMessage.setText("You have to choose student row first");
+				}else {
+					studentDelConfirmPanel.setVisible(true);
+					lblStudentIdDisplay.setText(table.getValueAt(selectedRow, 1).toString());
+					lblStudentNameDisplay.setText(table.getValueAt(selectedRow, 1).toString());
+				}
+			}
+		});
+		
+		btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String studentIdSearch = txtStudenSeachId.getText();
+				String studentProvinceSearch = comboBoxStudent.getSelectedItem().toString();
+				StudentBUS studentBUS = new StudentBUS();
+				List<StudentDTO> studentsSearchList = new ArrayList<StudentDTO>();
+				studentsSearchList = studentBUS.findStudentByIdAndPlace(studentIdSearch, studentProvinceSearch);
+				System.out.print(studentsSearchList);
+				DefaultTableModel model = new DefaultTableModel();
+				model.addColumn("ID");
+				model.addColumn("Name");
+				model.addColumn("Date");
+				model.addColumn("Gender");
+				model.addColumn("Province");
+				model.addColumn("Math");
+				model.addColumn("Physical");
+				model.addColumn("Chemistry");
+				// Append rows
+				Object studentTableRowData[] = new Object[10];
+				for (StudentDTO studentSearch : studentsSearchList) {
+					studentTableRowData[0] = studentSearch.getId();
+					studentTableRowData[1] = studentSearch.getName();
+					studentTableRowData[2] = studentSearch.getBirth();
+					if(studentSearch.getGender() == 1) {
+						studentTableRowData[3] = "Male";
+					}else {
+						studentTableRowData[3] = "Female";
+					}
+					studentTableRowData[4] = studentSearch.getPlace().getName();
+					studentTableRowData[5] = studentSearch.getMath();
+					studentTableRowData[6] = studentSearch.getPhysical();
+					studentTableRowData[7] = studentSearch.getChemistry();
+					model.addRow(studentTableRowData);
+				}
+				table.setModel(model);
+			}
+		});
+		
+		btnConfirmDel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				StudentBUS studentsBUS = new StudentBUS();
+				String studentID  = txtStudentId.getText();
+				String message = studentsBUS.delete(Integer.parseInt(studentID));
+				txtMessage.setText(message);
+				addRowToStudentTable();
+			}
+		});
+		
+		btnCancelDel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				studentDelConfirmPanel.setVisible(false);
 			}
 		});
 	}
@@ -802,14 +944,10 @@ public class StudentManagement {
 		model.addColumn("Physical");
 		model.addColumn("Chemistry");
 		// Append rows
-		StudentDAO studentDAO = new StudentDAO();
+		StudentBUS studentBUS = new StudentBUS();
 		List<StudentDTO> students = new ArrayList<StudentDTO>();
 
-		try {
-			students = studentDAO.showStudent(0, 1000000000);
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
+		students = studentBUS.findAll();
 
 		Object studentTableRowData[] = new Object[10];
 		for (StudentDTO student : students) {
