@@ -122,21 +122,6 @@ public class StudentManagement {
 		addRowToStudentTable();
 	}
 
-	private void addProvinceNameComboBox() {
-		ProvinceDAO provinces = new ProvinceDAO();
-		List<ProvinceDTO> provinceList;
-		try {
-			provinceList = provinces.showProvince();
-			for (int i = 0; i < provinceList.size(); i++) {
-				comboBoxStudent.addItem(provinceList.get(i).getName());
-				cbProvinceStudenSearch.addItem(provinceList.get(i).getName());
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
 	private void initializeProvince() {
 		JPanel provincePanel = new JPanel();
 		tabbedPane.addTab("Province", null, provincePanel, null);
@@ -620,20 +605,27 @@ public class StudentManagement {
 		lblStudentList.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblStudentList.setBounds(354, 8, 128, 16);
 		studentPanel.add(lblStudentList);
-
+		
 		JScrollPane studentScrollPane = new JScrollPane(table);
 		studentScrollPane.setBounds(12, 37, 803, 211);
 		studentPanel.add(studentScrollPane);
-		table = new JTable() {
-			;
+		
+		table = new JTable() {;
 			@Override
 			// users not to be able to edit the values in cells by double-clicking them
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		};
-		table.setModel(new DefaultTableModel(new Object[][] {},
-				new String[] { "ID", "Name", "Date", "Gender", "Province", "Math", "Physical", "Chemistry" }));
+		
+		table.setModel(new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+					"ID", "Name", "Date", "Gender", "Province", "Math", "Physical","Chemistry"
+				}
+			));
+		
 		studentScrollPane.setViewportView(table);
 
 		JPanel studentSearchPanel = new JPanel();
@@ -945,5 +937,20 @@ public class StudentManagement {
 			model.addRow(studentTableRowData);
 		}
 		table.setModel(model);
+	}
+	
+	private void addProvinceNameComboBox() {
+		ProvinceDAO provinces = new ProvinceDAO();
+		List<ProvinceDTO> provinceList;
+		try {
+			provinceList = provinces.showProvince();
+			for (int i = 0; i < provinceList.size(); i++) {
+				comboBoxStudent.addItem(provinceList.get(i).getName());
+				cbProvinceStudenSearch.addItem(provinceList.get(i).getName());
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }
