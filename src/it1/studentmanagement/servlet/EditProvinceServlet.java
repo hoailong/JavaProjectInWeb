@@ -25,7 +25,7 @@ public class EditProvinceServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		
 		int id = Integer.parseInt(request.getParameter("id"));
-		String name = request.getParameter("name");
+		String name = request.getParameter("provinceName");
 		
 		ProvinceBUS prvBus = new ProvinceBUS();
 		String message = prvBus.update(id, name);

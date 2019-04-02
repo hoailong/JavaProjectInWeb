@@ -1,9 +1,18 @@
 //Class để test chương trình trên màn hình console
 package it1.studentmanagement.gui;
+
+import java.util.List;
+
+import it1.studentmanagement.bus.StudentBUS;
+import it1.studentmanagement.dto.StudentDTO;
+
 public class Management {
 	public static void main(String[] args) {
-		int x = 11/5 * 5 + 5;
-		System.out.println(x);
+		StudentBUS stdBus = new StudentBUS();
+		List<StudentDTO> list = stdBus.findStudentByIdAndPlace("", "");
+		for (StudentDTO std : list) {
+			System.out.println(std);
+		}
 	}
 };
 

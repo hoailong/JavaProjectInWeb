@@ -27,7 +27,6 @@ public class CreateStudentServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		//lấy thông tin đã nhập trên form
-		int id = Integer.parseInt(request.getParameter("studentID"));
 		String name = request.getParameter("studentName");
 		String birth = request.getParameter("studentBirth");
 		int gender = Integer.parseInt(request.getParameter("studentGender"));
@@ -35,7 +34,7 @@ public class CreateStudentServlet extends HttpServlet {
 		float math = Float.parseFloat(request.getParameter("math"));
 		float physical = Float.parseFloat(request.getParameter("physical"));
 		float chemistry = Float.parseFloat(request.getParameter("chemistry"));
-		StudentDTO stdDTO = new StudentDTO(id, name, new ProvinceDTO("", placeId), birth, gender, math, physical, chemistry);
+		StudentDTO stdDTO = new StudentDTO(0, name, new ProvinceDTO("", placeId), birth, gender, math, physical, chemistry);
 		
 		StudentBUS stdBus = new StudentBUS();
 		String message = stdBus.insert(stdDTO);
