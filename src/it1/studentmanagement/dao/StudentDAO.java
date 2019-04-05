@@ -13,7 +13,7 @@ import it1.studentmanagement.jdbc.DBUtil;
 
 public class StudentDAO implements IStudentDAO {
 	@Override
-	public List<StudentDTO> showAllStudent() throws SQLException{
+	public List<StudentDTO> getAllStudents() throws SQLException{
 		//tạo mới connection ở đây:
 		Connection conn = DBUtil.getSqlConn();
 		String sql = "SELECT s.student_id, s.name as student_name, s.dob, s.gender, s.math, s.physical, s.chemistry, p.name as province_name, p.province_id "
@@ -22,19 +22,7 @@ public class StudentDAO implements IStudentDAO {
 		List<StudentDTO> list = new ArrayList<StudentDTO>();
 		PreparedStatement pstm = conn.prepareStatement(sql);
 		ResultSet result = pstm.executeQuery();
-		while (result.next()) {
-			int provinceId = result.getInt("province_id");
-			String provinceName = result.getString("province_name");
-			int studentId = result.getInt("student_id");
-			String studentName = result.getString("student_name");
-			String studentDob = result.getString("dob");
-			int studentGender = result.getInt("gender");
-			float math = result.getFloat("math");
-			float physical = result.getFloat("physical");
-			float chemistry = result.getFloat("chemistry");
-			StudentDTO student = new StudentDTO(studentId, studentName, new ProvinceDTO(provinceName, provinceId), studentDob, studentGender, math, physical, chemistry);
-			list.add(student);
-		}			
+		list = studentDTOMapper(result);	
 		//đóng luôn connection ở đây
 		conn.close();
 		pstm.close();
@@ -43,7 +31,7 @@ public class StudentDAO implements IStudentDAO {
 	}
 	
 	@Override
-	public List<StudentDTO> showStudent(int offset, int count) throws SQLException{
+	public List<StudentDTO> getStudentsWithPage(int offset, int count) throws SQLException {
 		//tạo mới connection ở đây:
 		Connection conn = DBUtil.getSqlConn();
 		String sql = "SELECT s.student_id, s.name as student_name, s.dob, s.gender, s.math, s.physical, s.chemistry, p.name as province_name, p.province_id "
@@ -54,19 +42,7 @@ public class StudentDAO implements IStudentDAO {
 		pstm.setInt(1, offset);
 		pstm.setInt(2, count);
 		ResultSet result = pstm.executeQuery();
-		while (result.next()) {
-			int provinceId = result.getInt("province_id");
-			String provinceName = result.getString("province_name");
-			int studentId = result.getInt("student_id");
-			String studentName = result.getString("student_name");
-			String studentDob = result.getString("dob");
-			int studentGender = result.getInt("gender");
-			float math = result.getFloat("math");
-			float physical = result.getFloat("physical");
-			float chemistry = result.getFloat("chemistry");
-			StudentDTO student = new StudentDTO(studentId, studentName, new ProvinceDTO(provinceName, provinceId), studentDob, studentGender, math, physical, chemistry);
-			list.add(student);
-		}			
+		list = studentDTOMapper(result);	
 		//đóng luôn connection ở đây
 		conn.close();
 		pstm.close();
@@ -75,7 +51,7 @@ public class StudentDAO implements IStudentDAO {
 	}
 
 	@Override
-	public List<StudentDTO> findStudent(String idSearch, String placeSearch) throws SQLException {
+	public List<StudentDTO> findStudentsByIdAndPlace(String idSearch, String placeSearch) throws SQLException {
 		//tạo mới connection ở đây:
 		Connection conn = DBUtil.getSqlConn();
 		String sql = "SELECT student_id, s.name, s.dob, s.gender, s.math, s.physical, s.chemistry, p.name as province_name, p.province_id  "
@@ -88,19 +64,7 @@ public class StudentDAO implements IStudentDAO {
 		/*pstm.setString(1, "'"+idSearch+"%'");
 		pstm.setString(2, "'"+placeSearch+"%'");*/
 		ResultSet result = pstm.executeQuery();
-		while (result.next()) {
-			int provinceId = result.getInt("province_id");
-			String provinceName = result.getString("province_name");
-			int studentId = result.getInt("student_id");
-			String studentName = result.getString("name");
-			String studentDob = result.getString("dob");
-			int studentGender = result.getInt("gender");
-			float math = result.getFloat("math");
-			float physical = result.getFloat("physical");
-			float chemistry = result.getFloat("chemistry");
-			StudentDTO student = new StudentDTO(studentId, studentName, new ProvinceDTO(provinceName, provinceId), studentDob, studentGender, math, physical, chemistry);
-			list.add(student);
-		}			
+		list = studentDTOMapper(result);	
 		//đóng luôn connection ở đây
 		conn.close();
 		pstm.close();
@@ -174,5 +138,25 @@ public class StudentDAO implements IStudentDAO {
 		return count;
 	}
 
-
+	
+	public List<StudentDTO> studentDTOMapper(ResultSet result) throws SQLException {
+		List<StudentDTO> list = new ArrayList<StudentDTO>();
+		while (result.next()) {
+			int provinceId = result.getInt("province_id");
+			String provinceName = result.getString("province_name");
+			int studentId = result.getInt("student_id");
+			String studentName = result.getString("student_name");
+			String studentDob = result.getString("dob");
+			int studentGender = result.getInt("gender");
+			float math = result.getFloat("math");
+			float physical = result.getFloat("physical");
+			float chemistry = result.getFloat("chemistry");
+			StudentDTO student = new StudentDTO(studentId, studentName, new ProvinceDTO(provinceName, provinceId), studentDob, studentGender, math, physical, chemistry);
+			list.add(student);
+		}
+		return list;
+	}
+	
 }
+
+

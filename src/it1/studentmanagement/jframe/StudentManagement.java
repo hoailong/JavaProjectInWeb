@@ -915,7 +915,7 @@ public class StudentManagement {
 		StudentBUS studentBUS = new StudentBUS();
 		List<StudentDTO> students = new ArrayList<StudentDTO>();
 
-		students = studentBUS.findAll();
+		students = studentBUS.getAll();
 
 		Object studentTableRowData[] = new Object[10];
 		for (StudentDTO student : students) {
