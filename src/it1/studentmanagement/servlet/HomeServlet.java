@@ -39,7 +39,7 @@ public class HomeServlet extends HttpServlet {
 		ProvinceBUS prvBus = new ProvinceBUS();
 		StudentBUS stdBus = new StudentBUS();
 
-		List<StudentDTO> listStd = stdBus.findWithPage((page-1)*count, count);
+		List<StudentDTO> listStd = stdBus.getStudentListPerPages((page-1)*count, count);
 		List<ProvinceDTO> listPrv = prvBus.findAll();
 		record = stdBus.getCountRow();
 		totalPage = (int) Math.ceil((double)record/count);

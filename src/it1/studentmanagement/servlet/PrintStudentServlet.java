@@ -24,7 +24,7 @@ public class PrintStudentServlet extends HttpServlet {
 		String id = request.getParameter("id");
 		
 		StudentBUS stdBus = new StudentBUS();
-		StudentDTO studentDTO = stdBus.findStudentByIdAndPlace(id, "").get(0);
+		StudentDTO studentDTO = stdBus.getStudentList(id, "").get(0);
 		request.setAttribute("student", studentDTO);
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/View/printStudent.jsp");
 		rd.forward(request, response);
