@@ -13,20 +13,21 @@ import it1.studentmanagement.bus.StudentBUS;
 import it1.studentmanagement.dto.ProvinceDTO;
 import it1.studentmanagement.dto.StudentDTO;
 
-@WebServlet("/CreateStudent")
-public class CreateStudentServlet extends HttpServlet {
+@WebServlet("/EditStudent")
+public class EditStudentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	public CreateStudentServlet() {
+       
+    public EditStudentServlet() {
         super();
     }
-    
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		//sử dụng đc tiếng việt
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
+		
 		//lấy thông tin đã nhập trên form
+		int id = Integer.parseInt(request.getParameter("studentID"));
 		String name = request.getParameter("studentName");
 		String birth = request.getParameter("studentBirth");
 		int gender = Integer.parseInt(request.getParameter("studentGender"));
@@ -34,19 +35,15 @@ public class CreateStudentServlet extends HttpServlet {
 		float math = Float.parseFloat(request.getParameter("math"));
 		float physical = Float.parseFloat(request.getParameter("physical"));
 		float chemistry = Float.parseFloat(request.getParameter("chemistry"));
-<<<<<<< HEAD
 		StudentDTO stdDTO = new StudentDTO(id, name, new ProvinceDTO("", placeId), birth, gender, math, physical, chemistry);
-
-=======
-		StudentDTO stdDTO = new StudentDTO(0, name, new ProvinceDTO("", placeId), birth, gender, math, physical, chemistry);
 		
->>>>>>> d51db227cc7a220c97467394d33178dcc1648ab2
 		StudentBUS stdBus = new StudentBUS();
-		String message = stdBus.insert(stdDTO);
+		String message = stdBus.update(stdDTO);
 		request.setAttribute("msg", message);
 		RequestDispatcher rd = this.getServletContext().getRequestDispatcher("/Home");
 		rd.forward(request, response);
 	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
