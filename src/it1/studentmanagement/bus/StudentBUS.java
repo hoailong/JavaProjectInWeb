@@ -15,9 +15,9 @@ public class StudentBUS implements IStudentBUS {
 	}
 
 	@Override
-	public List<StudentDTO> findAll() {
+	public List<StudentDTO> getStudentList() {
 		try {
-			List<StudentDTO> list = stdDao.showAllStudent();
+			List<StudentDTO> list = stdDao.getAllStudents();
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -26,9 +26,9 @@ public class StudentBUS implements IStudentBUS {
 	}
 
 	@Override
-	public List<StudentDTO> findWithPage(int offset, int count) {
+	public List<StudentDTO> getStudentListPerPages(int offset, int count) {
 		try {
-			List<StudentDTO> list = stdDao.showStudent(offset, count);
+			List<StudentDTO> list = stdDao.getStudentsWithPage(offset, count);
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -37,9 +37,9 @@ public class StudentBUS implements IStudentBUS {
 	}
 
 	@Override
-	public List<StudentDTO> findStudentByIdAndPlace(String id, String place) {
+	public List<StudentDTO> getStudentList(String studentId, String provinceName) {
 		try {
-			List<StudentDTO> list = stdDao.findStudent(id, place);
+			List<StudentDTO> list = stdDao.getStudentList(studentId, provinceName);
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -54,6 +54,7 @@ public class StudentBUS implements IStudentBUS {
 			stdDao.insertStudent(student);
 			return "Thêm thí sinh mới thành công!";
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return "Thêm thí sinh mới không thành công! " + e.toString();
 		}
 	}
@@ -65,6 +66,7 @@ public class StudentBUS implements IStudentBUS {
 			stdDao.updateStudent(student);
 			return "Cập nhật thông tin thành công!";
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return "Cập nhật thông tin không thành công! " + e.toString();
 		}
 	}
@@ -75,6 +77,7 @@ public class StudentBUS implements IStudentBUS {
 			stdDao.deleteStudent(id);
 			return "Xóa thí sinh thành công!";
 		} catch (SQLException e) {
+			e.printStackTrace();
 			return "Xóa thí sinh không thành công! " + e.toString();
 		}
 	}

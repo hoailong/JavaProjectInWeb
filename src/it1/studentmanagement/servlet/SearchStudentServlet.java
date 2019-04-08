@@ -39,7 +39,7 @@ public class SearchStudentServlet extends HttpServlet {
 		}
 		ProvinceBUS prvBus = new ProvinceBUS();
 		StudentBUS stdBus = new StudentBUS();
-		List<StudentDTO> listStd = stdBus.findStudentByIdAndPlace(id, place);
+		List<StudentDTO> listStd = stdBus.getStudentList(id, place);
 		List<ProvinceDTO> listPrv = prvBus.findAll();
 		record = listStd.size();
 		count = record/5 * 5 + 5;
