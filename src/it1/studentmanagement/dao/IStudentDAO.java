@@ -10,7 +10,7 @@ public interface IStudentDAO {
 	List<StudentDTO> getAllStudents() throws SQLException;
 	List<StudentDTO> getStudentsWithPage(int offset, int count) throws SQLException;
 	int getCountRow() throws SQLException;
-	List<StudentDTO> findStudentsByIdAndPlace(String idSearch, String placeSearch) throws SQLException;
+	List<StudentDTO> getStudentList(String idSearch, String placeSearch) throws SQLException;
 	void insertStudent(StudentDTO student) throws SQLException;
 	void updateStudent(StudentDTO student) throws SQLException;
 	void deleteStudent(int studentId) throws SQLException;

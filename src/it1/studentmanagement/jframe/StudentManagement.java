@@ -539,7 +539,7 @@ public class StudentManagement {
 				String studentIdSearch = txtStudenSeachId.getText();
 				String studentProvinceNameSearch = comboBoxStudent.getSelectedItem().toString();
 				StudentBUS studentBUS = new StudentBUS();
-				List<StudentDTO> studentsSearchList = studentBUS.findStudentByIdAndPlace(studentIdSearch, studentProvinceNameSearch);
+				List<StudentDTO> studentsSearchList = studentBUS.getStudentList(studentIdSearch, studentProvinceNameSearch);
 				System.out.print(studentsSearchList);
 				DefaultTableModel model = new DefaultTableModel();
 				model.addColumn("ID");
@@ -915,7 +915,7 @@ public class StudentManagement {
 		StudentBUS studentBUS = new StudentBUS();
 		List<StudentDTO> students = new ArrayList<StudentDTO>();
 
-		students = studentBUS.getAll();
+		students = studentBUS.getStudentList();
 
 		Object studentTableRowData[] = new Object[10];
 		for (StudentDTO student : students) {
@@ -940,7 +940,7 @@ public class StudentManagement {
 		ProvinceDAO provinces = new ProvinceDAO();
 		List<ProvinceDTO> provinceList;
 		try {
-			provinceList = provinces.showProvince();
+			provinceList = provinces.getProvinceList();
 			for (int i = 0; i < provinceList.size(); i++) {
 				comboBoxStudent.addItem(provinceList.get(i).getName());
 				cbProvinceStudenSearch.addItem(provinceList.get(i).getName());
