@@ -13,14 +13,14 @@ import it1.studentmanagement.jdbc.DBUtil;
 public class ProvinceDAO implements IProvinceDAO{
 	
 	@Override
-	public List<ProvinceDTO> getProvinceList() throws SQLException {
-		String sqlQuery = "SELECT * FROM province ORDER BY name ASC";
-		// Create new database connection
+	public List<ProvinceDTO> showProvince() throws SQLException {
+		String sql = "SELECT * FROM province ORDER BY name ASC";
+		//tạo mới connection ở đây:
 		Connection conn = DBUtil.getSqlConn();
 		
 		List<ProvinceDTO> list = new ArrayList<ProvinceDTO>();
 
-		PreparedStatement pstm = conn.prepareStatement(sqlQuery);
+		PreparedStatement pstm = conn.prepareStatement(sql);
 		ResultSet result = pstm.executeQuery();
 		
 		while (result.next()) {
@@ -30,7 +30,7 @@ public class ProvinceDAO implements IProvinceDAO{
 			list.add(province);
 		}	
 		
-		// Close database connection
+		//đóng luôn connection ở đây
 		conn.close();
 		pstm.close();
 		result.close();
@@ -45,7 +45,7 @@ public class ProvinceDAO implements IProvinceDAO{
 		pstm = conn.prepareStatement(sqlQuery);
 		pstm.setString(1, name);
 		pstm.executeUpdate();
-		// Close database connection
+		//đóng luôn connection ở đây
 		conn.close();
 		pstm.close();
 	}
@@ -54,13 +54,11 @@ public class ProvinceDAO implements IProvinceDAO{
 	public void updateProvince(String name, int id) throws SQLException {
 		Connection conn = DBUtil.getSqlConn();
 		String sqlQuery = "UPDATE province Set name = ? WHERE province_id = ?";
-		
 		PreparedStatement pstm = conn.prepareStatement(sqlQuery);
 		pstm.setString(1, name);
 		pstm.setInt(2, id);
 		pstm.executeUpdate();
-		
-		// Close database connection
+		//đóng luôn connection ở đây
 		conn.close();
 		pstm.close();
 	}
@@ -69,12 +67,10 @@ public class ProvinceDAO implements IProvinceDAO{
 	public void deleteProvince(int id) throws SQLException {
 		Connection conn = DBUtil.getSqlConn();
 		String sqlQuery = "DELETE FROM province WHERE province_id = ?";
-		
 		PreparedStatement pstm = conn.prepareStatement(sqlQuery);
 		pstm.setInt(1, id);
 		pstm.executeUpdate();
-		
-		// Close database connection
+		//đóng luôn connection ở đây
 		conn.close();
 		pstm.close();
 	}

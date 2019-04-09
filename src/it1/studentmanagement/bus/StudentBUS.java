@@ -15,9 +15,9 @@ public class StudentBUS implements IStudentBUS {
 	}
 
 	@Override
-	public List<StudentDTO> getStudentList() {
+	public List<StudentDTO> findAll() {
 		try {
-			List<StudentDTO> list = stdDao.getAllStudents();
+			List<StudentDTO> list = stdDao.showAllStudent();
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -26,9 +26,9 @@ public class StudentBUS implements IStudentBUS {
 	}
 
 	@Override
-	public List<StudentDTO> getStudentListPerPages(int offset, int count) {
+	public List<StudentDTO> findWithPage(int offset, int count) {
 		try {
-			List<StudentDTO> list = stdDao.getStudentsWithPage(offset, count);
+			List<StudentDTO> list = stdDao.showStudent(offset, count);
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -37,9 +37,9 @@ public class StudentBUS implements IStudentBUS {
 	}
 
 	@Override
-	public List<StudentDTO> getStudentList(String studentId, String provinceName) {
+	public List<StudentDTO> findStudentByIdAndPlace(String id, String place) {
 		try {
-			List<StudentDTO> list = stdDao.getStudentList(studentId, provinceName);
+			List<StudentDTO> list = stdDao.findStudent(id, place);
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();

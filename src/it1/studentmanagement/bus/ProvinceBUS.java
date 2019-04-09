@@ -16,7 +16,7 @@ public class ProvinceBUS implements IProvinceBUS {
 	@Override
 	public List<ProvinceDTO> findAll() {
 		try {
-			List<ProvinceDTO> list = prvDao.getProvinceList();
+			List<ProvinceDTO> list = prvDao.showProvince();
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();

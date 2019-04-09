@@ -1,18 +1,16 @@
 package it1.studentmanagement.dao;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 import it1.studentmanagement.dto.StudentDTO;
 
 public interface IStudentDAO {
-	List<StudentDTO> getAllStudents() throws SQLException;
-	List<StudentDTO> getStudentsWithPage(int offset, int count) throws SQLException;
-	int getCountRow() throws SQLException;
-	List<StudentDTO> getStudentList(String idSearch, String placeSearch) throws SQLException;
-	void insertStudent(StudentDTO student) throws SQLException;
-	void updateStudent(StudentDTO student) throws SQLException;
-	void deleteStudent(int studentId) throws SQLException;
-	List<StudentDTO> studentDTOMapper(ResultSet result) throws SQLException;
+	public List<StudentDTO> showAllStudent() throws SQLException;
+	public List<StudentDTO> showStudent(int offset, int count) throws SQLException;
+	public int getCountRow() throws SQLException;
+	public List<StudentDTO> findStudent(String idSearch, String placeSearch) throws SQLException;
+	public void insertStudent(StudentDTO student) throws SQLException;
+	public void updateStudent(StudentDTO student) throws SQLException;
+	public void deleteStudent(int studentId) throws SQLException;
 }

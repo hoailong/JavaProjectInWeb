@@ -9,7 +9,7 @@ import it1.studentmanagement.dto.StudentDTO;
 public class Management {
 	public static void main(String[] args) {
 		StudentBUS stdBus = new StudentBUS();
-		List<StudentDTO> list = stdBus.getStudentList("", "");
+		List<StudentDTO> list = stdBus.findStudentByIdAndPlace("", "");
 		for (StudentDTO std : list) {
 			System.out.println(std);
 		}
