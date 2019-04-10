@@ -55,7 +55,7 @@ public class StudentBUS implements IStudentBUS {
 			return "Thêm thí sinh mới thành công!";
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return "Thêm thí sinh mới không thành công! " + e.toString();
+			return "Thêm thí sinh mới không thành công!  \nLỗi:" + e.toString();
 		}
 	}
 
@@ -67,7 +67,7 @@ public class StudentBUS implements IStudentBUS {
 			return "Cập nhật thông tin thành công!";
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return "Cập nhật thông tin không thành công! " + e.toString();
+			return "Cập nhật thông tin không thành công! \nLỗi:" + e.toString();
 		}
 	}
 
@@ -78,7 +78,7 @@ public class StudentBUS implements IStudentBUS {
 			return "Xóa thí sinh thành công!";
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return "Xóa thí sinh không thành công! " + e.toString();
+			return "Xóa thí sinh không thành công! \nLỗi" + e.toString();
 		}
 	}
 

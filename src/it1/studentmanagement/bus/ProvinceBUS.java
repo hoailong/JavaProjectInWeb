@@ -4,13 +4,17 @@ import java.sql.SQLException;
 import java.util.List;
 
 import it1.studentmanagement.dao.ProvinceDAO;
+import it1.studentmanagement.dao.StudentDAO;
 import it1.studentmanagement.dto.ProvinceDTO;
+import it1.studentmanagement.dto.StudentDTO;
 
 public class ProvinceBUS implements IProvinceBUS {
 	private ProvinceDAO prvDao;
+	private StudentDAO stdDao;
 
 	public ProvinceBUS() {
 		this.prvDao = new ProvinceDAO();
+		this.stdDao = new StudentDAO();
 	}
 
 	@Override
@@ -57,6 +61,11 @@ public class ProvinceBUS implements IProvinceBUS {
 	@Override
 	public String delete(int id) {
 		try {
+			for (StudentDTO stdDto : stdDao.getAllStudents()) {
+				if (stdDto.getPlace().getId() == id) {
+					return "Xóa không thành công!\nTỉnh có thí sinh!";
+				}
+			}
 			prvDao.deleteProvince(id);
 			return "Xóa thành công!";
 		} catch (SQLException e) {
