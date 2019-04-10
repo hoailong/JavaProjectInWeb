@@ -336,10 +336,6 @@ public class StudentManagement {
 		studentPanel.add(studentSearchPanel);
 		studentSearchPanel.setLayout(null);
 	
-		JLabel label_2 = new JLabel("New label");
-		label_2.setBounds(79, 0, 78, 1);
-		studentSearchPanel.add(label_2);
-	
 		JLabel lblSearchBox = new JLabel("SEARCH BOX");
 		lblSearchBox.setForeground(Color.BLACK);
 		lblSearchBox.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -468,15 +464,16 @@ public class StudentManagement {
 							province = provinceList.get(i);
 						}
 					}
+					
+					int gender;
 					if (rdbtnMale.isSelected()) {
-						student = new StudentDTO(Integer.parseInt(txtStudentId.getText()), txtStudentName.getText(),
-								province, txtStudentDob.getText(), 1, Float.parseFloat(txtMath.getText()),
-								Float.parseFloat(txtPhysical.getText()), Float.parseFloat(txtChemistry.getText()));
+						gender = 1;
 					} else {
-						student = new StudentDTO(Integer.parseInt(txtStudentId.getText()), txtStudentName.getText(),
-								province, txtStudentDob.getText(), 0, Float.parseFloat(txtMath.getText()),
-								Float.parseFloat(txtPhysical.getText()), Float.parseFloat(txtChemistry.getText()));
+						gender = 0;
 					}
+					student = new StudentDTO(Integer.parseInt(txtStudentId.getText()), txtStudentName.getText(),
+							province, txtStudentDob.getText(), gender, Float.parseFloat(txtMath.getText()),
+							Float.parseFloat(txtPhysical.getText()), Float.parseFloat(txtChemistry.getText()));
 					StudentBUS studentsBUS = new StudentBUS();
 	
 					if (!isEditStudent) {
@@ -528,7 +525,7 @@ public class StudentManagement {
 					txtMessage.setText("You have to choose student row first");
 				} else {
 					studentDelConfirmPanel.setVisible(true);
-					lblStudentIdDisplay.setText(table.getValueAt(selectedRow, 1).toString());
+					lblStudentIdDisplay.setText(table.getValueAt(selectedRow, 0).toString());
 					lblStudentNameDisplay.setText(table.getValueAt(selectedRow, 1).toString());
 				}
 			}
