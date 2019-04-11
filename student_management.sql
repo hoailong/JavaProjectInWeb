@@ -33,74 +33,6 @@ CREATE TABLE `province` (
   `name` varchar(50) COLLATE utf8_vietnamese_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_vietnamese_ci;
 
--- ----------------------------
--- Records of province
--- ----------------------------
-INSERT INTO `province` VALUES ('Hà Giang');
-INSERT INTO `province` VALUES ('Hà Nội');
-INSERT INTO `province` VALUES ('Cao Bằng');
-INSERT INTO `province` VALUES ('Bắc Kạn');
-INSERT INTO `province` VALUES ('Tuyên Quang');
-INSERT INTO `province` VALUES ('Lào Cai');
-INSERT INTO `province` VALUES ('Điện Biên');
-INSERT INTO `province` VALUES ('Lai Châu');
-INSERT INTO `province` VALUES ('Sơn La');
-INSERT INTO `province` VALUES ('Yên Bái');
-INSERT INTO `province` VALUES ('Hoà Bình');
-INSERT INTO `province` VALUES ('Thái Nguyên');
-INSERT INTO `province` VALUES ('Lạng Sơn');
-INSERT INTO `province` VALUES ('Quảng Ninh');
-INSERT INTO `province` VALUES ('Bắc Giang');
-INSERT INTO `province` VALUES ('Phú Thọ');
-INSERT INTO `province` VALUES ('Vĩnh Phúc');
-INSERT INTO `province` VALUES ('Bắc Ninh');
-INSERT INTO `province` VALUES ('Hải Dương');
-INSERT INTO `province` VALUES ('Hải Phòng');
-INSERT INTO `province` VALUES ('Hưng Yên');
-INSERT INTO `province` VALUES ('Thái Bình');
-INSERT INTO `province` VALUES ('Hà Nam');
-INSERT INTO `province` VALUES ('Nam Định');
-INSERT INTO `province` VALUES ('Ninh Bình');
-INSERT INTO `province` VALUES ('Thanh Hóa');
-INSERT INTO `province` VALUES ('Nghệ An');
-INSERT INTO `province` VALUES ('Hà Tĩnh');
-INSERT INTO `province` VALUES ('Quảng Bình');
-INSERT INTO `province` VALUES ('Quảng Trị');
-INSERT INTO `province` VALUES ('Thừa Thiên Huế');
-INSERT INTO `province` VALUES ('Đà Nẵng');
-INSERT INTO `province` VALUES ('Quảng Nam');
-INSERT INTO `province` VALUES ('Quảng Ngãi');
-INSERT INTO `province` VALUES ('Bình Định');
-INSERT INTO `province` VALUES ('Phú Yên');
-INSERT INTO `province` VALUES ('Khánh Hòa');
-INSERT INTO `province` VALUES ('Ninh Thuận');
-INSERT INTO `province` VALUES ('Bình Thuận');
-INSERT INTO `province` VALUES ('Kon Tum');
-INSERT INTO `province` VALUES ('Gia Lai');
-INSERT INTO `province` VALUES ('Đắk Lắk');
-INSERT INTO `province` VALUES ('Đắk Nông');
-INSERT INTO `province` VALUES ('Lâm Đồng');
-INSERT INTO `province` VALUES ('Bình Phước');
-INSERT INTO `province` VALUES ('Tây Ninh');
-INSERT INTO `province` VALUES ('Bình Dương');
-INSERT INTO `province` VALUES ('Đồng Nai');
-INSERT INTO `province` VALUES ('Bà Rịa - Vũng Tàu');
-INSERT INTO `province` VALUES ('Hồ Chí Minh');
-INSERT INTO `province` VALUES ('Long An');
-INSERT INTO `province` VALUES ('Tiền Giang');
-INSERT INTO `province` VALUES ('Bến Tre');
-INSERT INTO `province` VALUES ('Trà Vinh');
-INSERT INTO `province` VALUES ('Vĩnh Long');
-INSERT INTO `province` VALUES ('Đồng Tháp');
-INSERT INTO `province` VALUES ('An Giang');
-INSERT INTO `province` VALUES ('Kiên Giang');
-INSERT INTO `province` VALUES ('Cần Thơ');
-INSERT INTO `province` VALUES ('Hậu Giang');
-INSERT INTO `province` VALUES ('Sóc Trăng');
-INSERT INTO `province` VALUES ('Bạc Liêu');
-INSERT INTO `province` VALUES ('Cà Mau');
-
-
 --
 -- Table structure for table `student`
 --
@@ -147,7 +79,74 @@ ALTER TABLE `student`
 -- AUTO_INCREMENT for table `province`
 --
 ALTER TABLE `province`
-  MODIFY `province_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `province_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+
+-- ----------------------------
+-- Records of province
+-- ----------------------------
+INSERT INTO `province`(name) VALUES ('Hà Giang');
+INSERT INTO `province`(name) VALUES ('Hà Nội');
+INSERT INTO `province`(name) VALUES ('Cao Bằng');
+INSERT INTO `province`(name) VALUES ('Bắc Kạn');
+INSERT INTO `province`(name) VALUES ('Tuyên Quang');
+INSERT INTO `province`(name) VALUES ('Lào Cai');
+INSERT INTO `province`(name) VALUES ('Điện Biên');
+INSERT INTO `province`(name) VALUES ('Lai Châu');
+INSERT INTO `province`(name) VALUES ('Sơn La');
+INSERT INTO `province`(name) VALUES ('Yên Bái');
+INSERT INTO `province`(name) VALUES ('Hoà Bình');
+INSERT INTO `province`(name) VALUES ('Thái Nguyên');
+INSERT INTO `province`(name) VALUES ('Lạng Sơn');
+INSERT INTO `province`(name) VALUES ('Quảng Ninh');
+INSERT INTO `province`(name) VALUES ('Bắc Giang');
+INSERT INTO `province`(name) VALUES ('Phú Thọ');
+INSERT INTO `province`(name) VALUES ('Vĩnh Phúc');
+INSERT INTO `province`(name) VALUES ('Bắc Ninh');
+INSERT INTO `province`(name) VALUES ('Hải Dương');
+INSERT INTO `province`(name) VALUES ('Hải Phòng');
+INSERT INTO `province`(name) VALUES ('Hưng Yên');
+INSERT INTO `province`(name) VALUES ('Thái Bình');
+INSERT INTO `province`(name) VALUES ('Hà Nam');
+INSERT INTO `province`(name) VALUES ('Nam Định');
+INSERT INTO `province`(name) VALUES ('Ninh Bình');
+INSERT INTO `province`(name) VALUES ('Thanh Hóa');
+INSERT INTO `province`(name) VALUES ('Nghệ An');
+INSERT INTO `province`(name) VALUES ('Hà Tĩnh');
+INSERT INTO `province`(name) VALUES ('Quảng Bình');
+INSERT INTO `province`(name) VALUES ('Quảng Trị');
+INSERT INTO `province`(name) VALUES ('Thừa Thiên Huế');
+INSERT INTO `province`(name) VALUES ('Đà Nẵng');
+INSERT INTO `province`(name) VALUES ('Quảng Nam');
+INSERT INTO `province`(name) VALUES ('Quảng Ngãi');
+INSERT INTO `province`(name) VALUES ('Bình Định');
+INSERT INTO `province`(name) VALUES ('Phú Yên');
+INSERT INTO `province`(name) VALUES ('Khánh Hòa');
+INSERT INTO `province`(name) VALUES ('Ninh Thuận');
+INSERT INTO `province`(name) VALUES ('Bình Thuận');
+INSERT INTO `province`(name) VALUES ('Kon Tum');
+INSERT INTO `province`(name) VALUES ('Gia Lai');
+INSERT INTO `province`(name) VALUES ('Đắk Lắk');
+INSERT INTO `province`(name) VALUES ('Đắk Nông');
+INSERT INTO `province`(name) VALUES ('Lâm Đồng');
+INSERT INTO `province`(name) VALUES ('Bình Phước');
+INSERT INTO `province`(name) VALUES ('Tây Ninh');
+INSERT INTO `province`(name) VALUES ('Bình Dương');
+INSERT INTO `province`(name) VALUES ('Đồng Nai');
+INSERT INTO `province`(name) VALUES ('Bà Rịa - Vũng Tàu');
+INSERT INTO `province`(name) VALUES ('Hồ Chí Minh');
+INSERT INTO `province`(name) VALUES ('Long An');
+INSERT INTO `province`(name) VALUES ('Tiền Giang');
+INSERT INTO `province`(name) VALUES ('Bến Tre');
+INSERT INTO `province`(name) VALUES ('Trà Vinh');
+INSERT INTO `province`(name) VALUES ('Vĩnh Long');
+INSERT INTO `province`(name) VALUES ('Đồng Tháp');
+INSERT INTO `province`(name) VALUES ('An Giang');
+INSERT INTO `province`(name) VALUES ('Kiên Giang');
+INSERT INTO `province`(name) VALUES ('Cần Thơ');
+INSERT INTO `province`(name) VALUES ('Hậu Giang');
+INSERT INTO `province`(name) VALUES ('Sóc Trăng');
+INSERT INTO `province`(name) VALUES ('Bạc Liêu');
+INSERT INTO `province`(name) VALUES ('Cà Mau');
 
 --
 -- Constraints for dumped tables
