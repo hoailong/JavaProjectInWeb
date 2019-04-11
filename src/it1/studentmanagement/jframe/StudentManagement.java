@@ -873,21 +873,16 @@ public class StudentManagement {
 	}
 
 	private void addProvinceNameComboBox() {
-		ProvinceDAO provinces = new ProvinceDAO();
+		ProvinceBUS provinces = new ProvinceBUS();
 		List<ProvinceDTO> provinceList;
-		try {
-			comboBoxStudent.removeAllItems();
-			cbProvinceStudenSearch.removeAllItems();
-			comboBoxStudent.addItem("--Chọn tỉnh--");
-			cbProvinceStudenSearch.addItem("--Tất cả--");
-			provinceList = provinces.getAllProvinces();
-			for (int i = 0; i < provinceList.size(); i++) {
-				comboBoxStudent.addItem(provinceList.get(i).getName());
-				cbProvinceStudenSearch.addItem(provinceList.get(i).getName());
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		comboBoxStudent.removeAllItems();
+		cbProvinceStudenSearch.removeAllItems();
+		comboBoxStudent.addItem("--Chọn tỉnh--");
+		cbProvinceStudenSearch.addItem("--Tất cả--");
+		provinceList = provinces.getProvinceList();
+		for (int i = 0; i < provinceList.size(); i++) {
+			comboBoxStudent.addItem(provinceList.get(i).getName());
+			cbProvinceStudenSearch.addItem(provinceList.get(i).getName());
 		}
 	}
 
