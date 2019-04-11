@@ -13,7 +13,7 @@ import it1.studentmanagement.jdbc.DBUtil;
 public class ProvinceDAO implements IProvinceDAO{
 	
 	@Override
-	public List<ProvinceDTO> getProvinceList() throws SQLException {
+	public List<ProvinceDTO> getAllProvinces() throws SQLException {
 		String sqlQuery = "SELECT * FROM province ORDER BY name ASC";
 		// Create new database connection
 		Connection conn = DBUtil.getSqlConn();

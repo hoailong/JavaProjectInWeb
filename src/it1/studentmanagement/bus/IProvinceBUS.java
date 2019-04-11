@@ -5,7 +5,7 @@ import java.util.List;
 import it1.studentmanagement.dto.ProvinceDTO;
 
 public interface IProvinceBUS {
-	List<ProvinceDTO> findAll();
+	List<ProvinceDTO> getProvinceList();
 	String insert(String name);
 	String update(int id, String name);
 	String delete(int id);

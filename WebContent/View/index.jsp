@@ -132,7 +132,7 @@
 				<table class="tblAbout" >
 						<tr>
 							<td width="40%">Thầy giáo bộ môn:</td>
-							<td width="60%"><b>Nguyễn Trọng Phúc</b></td>
+							<td width="60%"><b>Bùi Minh Cường</b></td>
 						</tr>
 						<tr>
 							<td rowspan="3">Những người thực hiện:</td>

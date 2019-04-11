@@ -18,9 +18,9 @@ public class ProvinceBUS implements IProvinceBUS {
 	}
 
 	@Override
-	public List<ProvinceDTO> findAll() {
+	public List<ProvinceDTO> getProvinceList() {
 		try {
-			List<ProvinceDTO> list = prvDao.getProvinceList();
+			List<ProvinceDTO> list = prvDao.getAllProvinces();
 			return list;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -75,7 +75,7 @@ public class ProvinceBUS implements IProvinceBUS {
 
 	@Override
 	public boolean checkConstant(String name) {
-		for (ProvinceDTO prv : findAll()) {
+		for (ProvinceDTO prv : getProvinceList()) {
 			if (prv.getName().equals(name))
 				return true;
 		}

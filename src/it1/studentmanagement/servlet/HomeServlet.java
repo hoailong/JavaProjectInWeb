@@ -40,7 +40,7 @@ public class HomeServlet extends HttpServlet {
 		StudentBUS stdBus = new StudentBUS();
 
 		List<StudentDTO> listStd = stdBus.getStudentListPerPages((page-1)*count, count);
-		List<ProvinceDTO> listPrv = prvBus.findAll();
+		List<ProvinceDTO> listPrv = prvBus.getProvinceList();
 		record = stdBus.getCountRow();
 		totalPage = (int) Math.ceil((double)record/count);
 		request.setAttribute("msg1", message1);
