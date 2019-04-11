@@ -127,7 +127,7 @@ public class StudentManagementv2 {
 
 		JPanel studentInfoPanel = new JPanel();
 		studentInfoPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		studentInfoPanel.setBounds(12, 261, 800, 293);
+		studentInfoPanel.setBounds(12, 261, 712, 293);
 		studentPanel.add(studentInfoPanel);
 		studentInfoPanel.setLayout(null);
 
@@ -161,7 +161,7 @@ public class StudentManagementv2 {
 		txtStudentName.setColumns(10);
 
 		txtStudentDob = new JTextField();
-		txtStudentDob.setToolTipText("YYYY/MM/dd");
+		txtStudentDob.setToolTipText("YYYY-MM-DD");
 		txtStudentDob.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtStudentDob.setEditable(false);
 		txtStudentDob.setBounds(141, 128, 242, 30);
@@ -204,7 +204,7 @@ public class StudentManagementv2 {
 		lblPhysical.setBounds(468, 134, 72, 16);
 		studentInfoPanel.add(lblPhysical);
 
-		JLabel lblChemistry = new JLabel("Chemistry");
+		JLabel lblChemistry = new JLabel("Chemistry:");
 		lblChemistry.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblChemistry.setBounds(468, 169, 72, 16);
 		studentInfoPanel.add(lblChemistry);
@@ -292,28 +292,28 @@ public class StudentManagementv2 {
 
 		JPanel studentSearchPanel = new JPanel();
 		studentSearchPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		studentSearchPanel.setBounds(818, 261, 310, 162);
+		studentSearchPanel.setBounds(734, 261, 394, 162);
 		studentPanel.add(studentSearchPanel);
 		studentSearchPanel.setLayout(null);
 
 		JLabel lblSearchBox = new JLabel("Student Filtre");
 		lblSearchBox.setForeground(Color.BLACK);
 		lblSearchBox.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblSearchBox.setBounds(97, 11, 157, 30);
+		lblSearchBox.setBounds(131, 11, 157, 30);
 		studentSearchPanel.add(lblSearchBox);
 
 		JLabel lblStudentId = new JLabel("Student ID: ");
 		lblStudentId.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblStudentId.setBounds(12, 56, 86, 16);
+		lblStudentId.setBounds(54, 56, 86, 16);
 		studentSearchPanel.add(lblStudentId);
 
 		JLabel lblProvinceName_1 = new JLabel("Province Name:");
 		lblProvinceName_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblProvinceName_1.setBounds(12, 87, 109, 16);
+		lblProvinceName_1.setBounds(54, 87, 109, 16);
 		studentSearchPanel.add(lblProvinceName_1);
 
 		txtStudenSeachId = new JTextField();
-		txtStudenSeachId.setBounds(121, 54, 177, 22);
+		txtStudenSeachId.setBounds(163, 54, 177, 22);
 		studentSearchPanel.add(txtStudenSeachId);
 		txtStudenSeachId.setColumns(10);
 
@@ -323,35 +323,36 @@ public class StudentManagementv2 {
 		studentSearchPanel.add(list);
 
 		JButton btnSearch = new JButton("Search");
-		btnSearch.setBounds(201, 123, 97, 25);
+		btnSearch.setBounds(243, 123, 97, 25);
 		studentSearchPanel.add(btnSearch);
 
 		cbProvinceStudenSearch = new JComboBox();
-		cbProvinceStudenSearch.setBounds(121, 85, 177, 22);
+		cbProvinceStudenSearch.setBounds(163, 85, 177, 22);
 		studentSearchPanel.add(cbProvinceStudenSearch);
 
 		JPanel studentMessagePane = new JPanel();
 		studentMessagePane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		studentMessagePane.setBounds(816, 436, 310, 118);
+		studentMessagePane.setBounds(734, 436, 392, 118);
 		studentPanel.add(studentMessagePane);
 		studentMessagePane.setLayout(null);
 
 		JLabel lblMessage = new JLabel("Message");
+		lblMessage.setBounds(163, 0, 90, 34);
 		lblMessage.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblMessage.setBounds(107, 0, 90, 34);
 		studentMessagePane.add(lblMessage);
 
 		JScrollPane studentMessageScrollPanel = new JScrollPane();
-		studentMessageScrollPanel.setBounds(12, 34, 286, 75);
+		studentMessageScrollPanel.setBounds(12, 34, 370, 75);
 		studentMessagePane.add(studentMessageScrollPanel);
-
-		txtStudentMessage = new JTextArea();
-		studentMessageScrollPanel.setViewportView(txtStudentMessage);
-		txtStudentMessage.setWrapStyleWord(true);
-		txtStudentMessage.setLineWrap(true);
-		txtStudentMessage.setFont(new Font("Monospaced", Font.BOLD, 18));
-		txtStudentMessage.setForeground(Color.RED);
-		txtStudentMessage.setColumns(10);
+		
+				txtStudentMessage = new JTextArea();
+				studentMessageScrollPanel.setViewportView(txtStudentMessage);
+				txtStudentMessage.setEditable(false);
+				txtStudentMessage.setWrapStyleWord(true);
+				txtStudentMessage.setLineWrap(true);
+				txtStudentMessage.setFont(new Font("Monospaced", Font.BOLD, 18));
+				txtStudentMessage.setForeground(Color.RED);
+				txtStudentMessage.setColumns(10);
 
 		// khi chọn một row
 		table.addMouseListener(new MouseAdapter() {
@@ -402,6 +403,7 @@ public class StudentManagementv2 {
 			public void actionPerformed(ActionEvent arg0) {
 				isEditStudent = false;
 				clearTextFieldStudent();
+				txtStudentDob.setText("YYYY-MM-DD");
 				comboBoxStudent.setEnabled(true);
 				setEditableTextFieldStudent(true);
 				btnSaveStudent.setEnabled(true);
@@ -624,6 +626,7 @@ public class StudentManagementv2 {
 		provinceMessagePane.setLayout(null);
 
 		txtProvinceMessage = new JTextArea();
+		txtProvinceMessage.setEditable(false);
 		txtProvinceMessage.setLineWrap(true);
 		txtProvinceMessage.setWrapStyleWord(true);
 		txtProvinceMessage.setBounds(12, 37, 575, 125);
@@ -750,7 +753,7 @@ public class StudentManagementv2 {
 		aboutPanel.add(aboutPanelInfor);
 		aboutPanelInfor.setLayout(null);
 
-		JLabel lblTeacherName = new JLabel("");
+		JLabel lblTeacherName = new JLabel("Bùi Minh Cường");
 		lblTeacherName.setBounds(282, 41, 167, 30);
 		aboutPanelInfor.add(lblTeacherName);
 		lblTeacherName.setFont(new Font("Tahoma", Font.PLAIN, 18));

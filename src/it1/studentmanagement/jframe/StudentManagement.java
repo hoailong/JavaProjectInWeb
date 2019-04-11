@@ -152,7 +152,7 @@ public class StudentManagement {
 		txtStudentName.setColumns(10);
 	
 		txtStudentDob = new JTextField();
-		txtStudentDob.setToolTipText("YYYY/MM/dd");
+		txtStudentDob.setToolTipText("YYYY-MM-DD");
 		txtStudentDob.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtStudentDob.setEditable(false);
 		txtStudentDob.setBounds(141, 128, 242, 30);
@@ -195,7 +195,7 @@ public class StudentManagement {
 		lblPhysical.setBounds(468, 134, 72, 16);
 		studentInfoPanel.add(lblPhysical);
 	
-		JLabel lblChemistry = new JLabel("Chemistry");
+		JLabel lblChemistry = new JLabel("Chemistry:");
 		lblChemistry.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblChemistry.setBounds(468, 169, 72, 16);
 		studentInfoPanel.add(lblChemistry);
@@ -286,10 +286,10 @@ public class StudentManagement {
 		studentPanel.add(studentSearchPanel);
 		studentSearchPanel.setLayout(null);
 	
-		JLabel lblSearchBox = new JLabel("Student Filtre");
+		JLabel lblSearchBox = new JLabel("Student Filter");
 		lblSearchBox.setForeground(Color.BLACK);
 		lblSearchBox.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblSearchBox.setBounds(97, 11, 157, 30);
+		lblSearchBox.setBounds(97, 11, 139, 30);
 		studentSearchPanel.add(lblSearchBox);
 	
 		JLabel lblStudentId = new JLabel("Student ID: ");
@@ -370,6 +370,7 @@ public class StudentManagement {
 			public void actionPerformed(ActionEvent arg0) {
 				isEditStudent = false;
 				clearTextFieldStudent();
+				txtStudentDob.setText("YYYY-MM-DD");
 				comboBoxStudent.setEnabled(true);
 				setEditableTextFieldStudent(true);
 				btnSaveStudent.setEnabled(true);
@@ -691,7 +692,7 @@ public class StudentManagement {
 		aboutPanel.add(aboutPanelInfor);
 		aboutPanelInfor.setLayout(null);
 
-		JLabel lblTeacherName = new JLabel("");
+		JLabel lblTeacherName = new JLabel("Bùi Minh Cường");
 		lblTeacherName.setBounds(282, 41, 167, 30);
 		aboutPanelInfor.add(lblTeacherName);
 		lblTeacherName.setFont(new Font("Tahoma", Font.PLAIN, 18));
