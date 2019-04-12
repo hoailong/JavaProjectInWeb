@@ -30,7 +30,7 @@ public class ProvinceMessagePanel extends JPanel {
 
 	public ProvinceMessagePanel() {
 		setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		setBounds(501, 324, 599, 175);
+		setBounds(500, 325, 600, 175);
 		setLayout(null);
 
 		JLabel lblMessage = new JLabel("Message");

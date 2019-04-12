@@ -9,50 +9,31 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.border.EtchedBorder;
 
 import it1.studentmanagement.jframe.about.AboutPanel;
-import it1.studentmanagement.jframe.province.ProvinceJFrame;
+import it1.studentmanagement.jframe.province.ProvincePanel;
 
 public class MainWindow extends JFrame {
-
+	private JTabbedPane tabbedPane;
+	
 	public MainWindow() {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setBounds(360, 240, 1200, 600);
+        setBounds(360, 240, 1225, 650);
         setLayout(null);
-
-		JLabel lblTitle = new JLabel("Chương trình quản lý thí sinh dự thi Đại Học");
-		lblTitle.setFont(new Font("Tahoma", Font.BOLD, 36));
-		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setBounds(120, 20, 960, 45);
-		add(lblTitle);
+		
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.setBounds(6, 6, 1200, 600);
+		add(tabbedPane);
+		
+		ProvincePanel provincePanel = new ProvincePanel();
+		tabbedPane.addTab("Province", provincePanel);
 		
 		AboutPanel about = new AboutPanel();
-		add(about);
-		
-        final JButton btnOpenSM = new JButton("Student Management");
-        btnOpenSM.setBounds(300, 450, 200, 50);
-        btnOpenSM.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                StudentJFrame studentJframe = new StudentJFrame();
-                studentJframe.setVisible(true);
-            }
-        });
-        add(btnOpenSM);
-        
-        final JButton btnOpenPM = new JButton("Province Management");
-        btnOpenPM.setBounds(700, 450, 200, 50);
-        btnOpenPM.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ProvinceJFrame provinceJframe = new ProvinceJFrame();
-                provinceJframe.setVisible(true);
-            }
-        });
-        add(btnOpenPM);
+		tabbedPane.addTab("About", about);
     }
 
 }

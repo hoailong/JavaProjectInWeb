@@ -30,69 +30,65 @@ public class ProvinceInfoPanel extends JPanel {
 	 */
 	public ProvinceInfoPanel(ProvinceScrollPane scrollPane, ProvinceMessagePanel messagePanel, ProvinceBUS provinceBUS) {
 		setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		setBounds(501, 113, 599, 177);
+		setBounds(500, 115, 600, 175);
 		setLayout(null);
-
-		JLabel lblProvinceID = new JLabel("Province ID:");
-		lblProvinceID.setBounds(10, 64, 76, 17);
-		add(lblProvinceID);
-		lblProvinceID.setFont(new Font("Tahoma", Font.PLAIN, 14));
-
-		JLabel lblProvinceName = new JLabel("Province Name:");
-		lblProvinceName.setBounds(10, 92, 97, 17);
-		add(lblProvinceName);
-		lblProvinceName.setFont(new Font("Tahoma", Font.PLAIN, 14));
-
-		txtProvinceID = new JTextField();
-		txtProvinceID.setBounds(132, 61, 450, 25);
-		add(txtProvinceID);
-		txtProvinceID.setEditable(false);
-		txtProvinceID.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		txtProvinceID.setColumns(10);
-
-		txtProvinceName = new JTextField();
-		txtProvinceName.setBounds(132, 89, 450, 25);
-		add(txtProvinceName);
-		txtProvinceName.setEditable(false);
-		txtProvinceName.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		txtProvinceName.setColumns(10);
-
-		btnInsertProvince = new JButton("Insert");
-		btnInsertProvince.setBounds(10, 141, 97, 25);
-		add(btnInsertProvince);
-
-		btnInsertProvince.setFont(new Font("Tahoma", Font.PLAIN, 14));
-
-		btnEditProvince = new JButton("Edit");
-		btnEditProvince.setBounds(132, 141, 97, 25);
-		btnEditProvince.setEnabled(false);
-		add(btnEditProvince);
-
-		btnEditProvince.setFont(new Font("Tahoma", Font.PLAIN, 14));
-
-		btnDeleteProvince = new JButton("Delete");
-		btnDeleteProvince.setBounds(252, 141, 97, 25);
-		btnDeleteProvince.setEnabled(false);
-		add(btnDeleteProvince);
-
-		btnDeleteProvince.setFont(new Font("Tahoma", Font.PLAIN, 14));
-
-		btnSaveProvince = new JButton("Save");
-		btnSaveProvince.setBounds(369, 141, 97, 25);
-		add(btnSaveProvince);
-		btnSaveProvince.setEnabled(false);
-		btnSaveProvince.setFont(new Font("Tahoma", Font.PLAIN, 14));
-
-		btnCancelProvince = new JButton("Cancel");
-		btnCancelProvince.setBounds(485, 141, 97, 25);
-		add(btnCancelProvince);
-
-		btnCancelProvince.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
 		JLabel lblProvinceInformation = new JLabel("Province Information");
 		lblProvinceInformation.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblProvinceInformation.setBounds(204, 11, 199, 39);
 		add(lblProvinceInformation);
+		
+		JLabel lblProvinceID = new JLabel("Province ID:");
+		lblProvinceID.setBounds(10, 55, 125, 17);
+		lblProvinceID.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		add(lblProvinceID);
+		
+		txtProvinceID = new JTextField();
+		txtProvinceID.setBounds(190, 55, 400, 25);
+		txtProvinceID.setEditable(false);
+		txtProvinceID.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		txtProvinceID.setColumns(10);
+		add(txtProvinceID);
+		
+		JLabel lblProvinceName = new JLabel("Province Name:");
+		lblProvinceName.setBounds(10, 90, 125, 17);
+		lblProvinceName.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		add(lblProvinceName);
+		
+		txtProvinceName = new JTextField();
+		txtProvinceName.setBounds(190, 90, 400, 25);
+		txtProvinceName.setEditable(false);
+		txtProvinceName.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		txtProvinceName.setColumns(10);
+		add(txtProvinceName);
+		
+		btnInsertProvince = new JButton("Insert");
+		btnInsertProvince.setBounds(10, 135, 100, 25);
+		btnInsertProvince.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		add(btnInsertProvince);
+		
+		btnEditProvince = new JButton("Edit");
+		btnEditProvince.setBounds(130, 135, 100, 25);
+		btnEditProvince.setEnabled(false);
+		btnEditProvince.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		add(btnEditProvince);
+		
+		btnDeleteProvince = new JButton("Delete");
+		btnDeleteProvince.setBounds(250, 135, 100, 25);
+		btnDeleteProvince.setEnabled(false);
+		btnDeleteProvince.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		add(btnDeleteProvince);
+		
+		btnSaveProvince = new JButton("Save");
+		btnSaveProvince.setBounds(370, 135, 100, 25);
+		btnSaveProvince.setEnabled(false);
+		btnSaveProvince.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		add(btnSaveProvince);
+		
+		btnCancelProvince = new JButton("Cancel");
+		btnCancelProvince.setBounds(490, 135, 100, 25);
+		btnCancelProvince.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		add(btnCancelProvince);
 		
 		// Event listener
 		btnCancelProvince.addActionListener(new ActionListener() {
@@ -109,7 +105,7 @@ public class ProvinceInfoPanel extends JPanel {
 		btnSaveProvince.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (txtProvinceName.getText().isEmpty()) {
-					messagePanel.showProvinceMessage("Province name can't be null");
+					messagePanel.showProvinceMessage("Tên tỉnh không được để trống.");
 					txtProvinceName.requestFocus();
 				} else {
 					String provinceName = txtProvinceName.getText();
@@ -135,7 +131,6 @@ public class ProvinceInfoPanel extends JPanel {
 
 		btnDeleteProvince.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				DefaultTableModel model = (DefaultTableModel) scrollPane.provinceTable.getModel();
 				int selectedRowIndex = scrollPane.provinceTable.getSelectedRow();
 				if (selectedRowIndex != -1) {
 					int accept = JOptionPane.showConfirmDialog(null,
@@ -155,14 +150,13 @@ public class ProvinceInfoPanel extends JPanel {
 					}
 
 				} else {
-					messagePanel.showProvinceMessage("You have to choose a province row first");
+					messagePanel.showProvinceMessage("Bạn cần chọn tỉnh trước");
 				}
 			}
 		});
 
 		btnEditProvince.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DefaultTableModel model = (DefaultTableModel) scrollPane.provinceTable.getModel();
 				int selectedRowIndex = scrollPane.provinceTable.getSelectedRow();
 				if (selectedRowIndex != -1) {
 					isEditProvince = true;
@@ -170,7 +164,7 @@ public class ProvinceInfoPanel extends JPanel {
 					txtProvinceName.setEditable(true);
 					txtProvinceName.requestFocus();
 				} else {
-					JOptionPane.showMessageDialog(null, "You have to choose a province row first", "Lỗi",
+					JOptionPane.showMessageDialog(null, "Bạn cần chọn tỉnh trước", "Lỗi",
 							JOptionPane.ERROR_MESSAGE);
 				}
 			}
