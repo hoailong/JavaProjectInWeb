@@ -2,7 +2,7 @@ package it1.studentmanagement.jframe;
 
 import javax.swing.SwingUtilities;
 
-public class app {
+public class App {
 	/**
 	 * Launch the application.
 	 */

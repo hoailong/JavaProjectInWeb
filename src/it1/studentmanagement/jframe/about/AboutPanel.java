@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EtchedBorder;
+import java.awt.Color;
 
 public class AboutPanel extends JPanel {
 
@@ -23,55 +24,61 @@ public class AboutPanel extends JPanel {
 		lblTitle.setBounds(120, 20, 960, 50);
 		add(lblTitle);
 		
+		JPanel panelAboutInfor = new JPanel();
+		panelAboutInfor.setBackground(Color.WHITE);
+		panelAboutInfor.setBounds(265, 110, 670, 327);
+		add(panelAboutInfor);
+		panelAboutInfor.setLayout(null);
+		
 		JLabel lblTeacher = new JLabel("Thầy giáo bộ môn:");
-		lblTeacher.setBounds(340, 130, 165, 30);
+		lblTeacher.setBounds(63, 47, 165, 30);
+		panelAboutInfor.add(lblTeacher);
 		lblTeacher.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		add(lblTeacher);
 		
 		JLabel lblTeacherName = new JLabel("Bùi Minh Cường");
-		lblTeacherName.setBounds(570, 130, 165, 30);		
+		lblTeacherName.setBounds(270, 47, 165, 30);
+		panelAboutInfor.add(lblTeacherName);
 		lblTeacherName.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		add(lblTeacherName);
 		
 		JLabel lblStudentList = new JLabel("Danh sách sinh viên:");
-		lblStudentList.setBounds(340, 170, 165, 30);
+		lblStudentList.setBounds(63, 87, 165, 30);
+		panelAboutInfor.add(lblStudentList);
 		lblStudentList.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		add(lblStudentList);
 		
 		JLabel lblHoai = new JLabel("Phan Văn Hoài (171203470)");
-		lblHoai.setBounds(570, 170, 340, 30);
+		lblHoai.setBounds(270, 87, 340, 30);
+		panelAboutInfor.add(lblHoai);
 		lblHoai.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		add(lblHoai);
 		
 		JLabel lblNam = new JLabel("Phạm Nhật Nam (171200791)");
-		lblNam.setBounds(570, 210, 340, 30);
+		lblNam.setBounds(270, 127, 340, 30);
+		panelAboutInfor.add(lblNam);
 		lblNam.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		add(lblNam);
 		
 		JLabel lblTung = new JLabel("Lê Sơn Tùng (171210160)");
-		lblTung.setBounds(570, 250, 340, 30);
+		lblTung.setBounds(270, 167, 340, 30);
+		panelAboutInfor.add(lblTung);
 		lblTung.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		add(lblTung);
 
 		JLabel lblClass = new JLabel("Lớp:");
-		lblClass.setBounds(340, 290, 195, 30);
+		lblClass.setBounds(63, 207, 195, 30);
+		panelAboutInfor.add(lblClass);
 		lblClass.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		add(lblClass);
 		
 		JLabel lblClassName = new JLabel("Công nghệ thông tin 1 - K58");
-		lblClassName.setBounds(570, 290, 340, 30);
+		lblClassName.setBounds(270, 207, 340, 30);
+		panelAboutInfor.add(lblClassName);
 		lblClassName.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		add(lblClassName);
 		
 		JLabel lblUniversity = new JLabel("Trường:");
-		lblUniversity.setBounds(340, 330, 195, 30);
+		lblUniversity.setBounds(63, 247, 195, 30);
+		panelAboutInfor.add(lblUniversity);
 		lblUniversity.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		add(lblUniversity);
 		
 		JLabel lblUniversityName = new JLabel("Đại học Giao Thông Vận Tải");
-		lblUniversityName.setBounds(570, 330, 340, 30);
+		lblUniversityName.setBounds(270, 247, 340, 30);
+		panelAboutInfor.add(lblUniversityName);
 		lblUniversityName.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		add(lblUniversityName);
 	}
 
 }
