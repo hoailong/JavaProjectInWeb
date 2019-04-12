@@ -1,5 +1,6 @@
 package it1.studentmanagement.jframe;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -8,7 +9,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.ButtonGroup;
@@ -21,14 +21,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.Timer;
+import javax.swing.WindowConstants;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.EtchedBorder;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import it1.studentmanagement.bus.ProvinceBUS;
@@ -37,16 +36,7 @@ import it1.studentmanagement.dao.ProvinceDAO;
 import it1.studentmanagement.dto.ProvinceDTO;
 import it1.studentmanagement.dto.StudentDTO;
 
-public class StudentManagement {
-
-	private JFrame frame;
-	private JTextField txtProvinceID;
-	private JTextField txtProvinceName;
-	private static ProvinceBUS provinceBUS = new ProvinceBUS();
-	private static StudentBUS studentsBUS = new StudentBUS();
-	private static boolean isEditProvince = false;
-	private static boolean isEditStudent = false;
-	private JTable provinceTable;
+public class StudentJFrame extends JFrame {
 	private JTextField txtStudentId;
 	private JTextField txtStudentName;
 	private JTextField txtStudentDob;
@@ -56,12 +46,13 @@ public class StudentManagement {
 	private JTextField txtStudenSeachId;
 	private JRadioButton rdbtnMale;
 	private JRadioButton rdbtnFemale;
-	private JTable table;
-	private JTabbedPane tabbedPane;
 	private JTextArea txtStudentMessage;
 	private JComboBox comboBoxStudent;
 	private JComboBox cbProvinceStudenSearch;
-	private JTextArea txtProvinceMessage;
+	private JTable table;
+	private static ProvinceBUS provinceBUS = new ProvinceBUS();
+	private static StudentBUS studentsBUS = new StudentBUS();
+	private static boolean isEditStudent = false;
 	private Timer timer = new Timer(5000, new ActionListener() {
 
 		@Override
@@ -70,64 +61,18 @@ public class StudentManagement {
 		}
 
 	});
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					StudentManagement window = new StudentManagement();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
-	 */
-	public StudentManagement() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 1160, 650);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frame.setLocationRelativeTo(null);
-
-		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(0, 6, 1142, 597);
-		frame.getContentPane().add(tabbedPane);
-
-		initializeStudent();
-		initializeProvince();
-		initializeAbout();
-		addProvinceNameComboBox();
-		addRowToProvinceTable(provinceBUS.getProvinceList());
-		addRowToStudentTable(studentsBUS.getStudentList());
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	/**
-	 * 
-	 */
-
-	private void initializeStudent() {
+	public StudentJFrame() {
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 1200, 600);
 		JScrollPane studentScrollList = new JScrollPane();
 		studentScrollList.setBounds(0, 249, 668, -220);
 
-		JPanel studentPanel = new JPanel();
-		tabbedPane.addTab("Student", null, studentPanel, null);
-		studentPanel.setLayout(null);
+		setLayout(null);
 
 		JPanel studentInfoPanel = new JPanel();
 		studentInfoPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		studentInfoPanel.setBounds(12, 261, 712, 293);
-		studentPanel.add(studentInfoPanel);
+		add(studentInfoPanel);
 		studentInfoPanel.setLayout(null);
 
 		JLabel lblStudentID = new JLabel("Student ID:");
@@ -269,11 +214,11 @@ public class StudentManagement {
 		lblStudentList.setForeground(Color.BLACK);
 		lblStudentList.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblStudentList.setBounds(508, 5, 121, 25);
-		studentPanel.add(lblStudentList);
+		add(lblStudentList);
 
 		JScrollPane studentScrollPane = new JScrollPane(table);
 		studentScrollPane.setBounds(12, 37, 1114, 211);
-		studentPanel.add(studentScrollPane);
+		add(studentScrollPane);
 
 		table = new JTable() {
 			;
@@ -292,7 +237,7 @@ public class StudentManagement {
 		JPanel studentSearchPanel = new JPanel();
 		studentSearchPanel.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		studentSearchPanel.setBounds(734, 261, 394, 162);
-		studentPanel.add(studentSearchPanel);
+		add(studentSearchPanel);
 		studentSearchPanel.setLayout(null);
 
 		JLabel lblSearchBox = new JLabel("Student Filtre");
@@ -332,7 +277,7 @@ public class StudentManagement {
 		JPanel studentMessagePane = new JPanel();
 		studentMessagePane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		studentMessagePane.setBounds(734, 436, 392, 118);
-		studentPanel.add(studentMessagePane);
+		add(studentMessagePane);
 		studentMessagePane.setLayout(null);
 
 		JLabel lblMessage = new JLabel("Message");
@@ -524,303 +469,6 @@ public class StudentManagement {
 
 	}
 
-	private void initializeProvince() {
-		JPanel provincePanel = new JPanel();
-		tabbedPane.addTab("Province", null, provincePanel, null);
-		provincePanel.setLayout(null);
-
-		JScrollPane provinceScrollPane = new JScrollPane();
-		provinceScrollPane.setBounds(61, 62, 415, 474);
-		provincePanel.add(provinceScrollPane);
-
-		provinceTable = new JTable() {
-			;
-			@Override
-			// users not to be able to edit the values in cells by double-clicking them
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
-		};
-		provinceTable.setRowHeight(30);
-		provinceTable.setFont(new Font("Tahoma", Font.PLAIN, 18));
-
-		provinceTable.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "ID", "Province Name" }));
-		provinceScrollPane.setViewportView(provinceTable);
-
-		JPanel provinceInformationPane = new JPanel();
-		provinceInformationPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		provinceInformationPane.setBounds(501, 113, 599, 177);
-		provincePanel.add(provinceInformationPane);
-		provinceInformationPane.setLayout(null);
-
-		JLabel lblProvinceID = new JLabel("Province ID:");
-		lblProvinceID.setBounds(10, 64, 76, 17);
-		provinceInformationPane.add(lblProvinceID);
-		lblProvinceID.setFont(new Font("Tahoma", Font.PLAIN, 14));
-
-		JLabel lblProvinceName = new JLabel("Province Name:");
-		lblProvinceName.setBounds(10, 92, 97, 17);
-		provinceInformationPane.add(lblProvinceName);
-		lblProvinceName.setFont(new Font("Tahoma", Font.PLAIN, 14));
-
-		txtProvinceID = new JTextField();
-		txtProvinceID.setBounds(132, 61, 450, 25);
-		provinceInformationPane.add(txtProvinceID);
-		txtProvinceID.setEditable(false);
-		txtProvinceID.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		txtProvinceID.setColumns(10);
-
-		txtProvinceName = new JTextField();
-		txtProvinceName.setBounds(132, 89, 450, 25);
-		provinceInformationPane.add(txtProvinceName);
-		txtProvinceName.setEditable(false);
-		txtProvinceName.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		txtProvinceName.setColumns(10);
-
-		JButton btnInsertProvince = new JButton("Insert");
-		btnInsertProvince.setBounds(10, 141, 97, 25);
-		provinceInformationPane.add(btnInsertProvince);
-
-		btnInsertProvince.setFont(new Font("Tahoma", Font.PLAIN, 14));
-
-		JButton btnEditProvince = new JButton("Edit");
-		btnEditProvince.setBounds(132, 141, 97, 25);
-		btnEditProvince.setEnabled(false);
-		provinceInformationPane.add(btnEditProvince);
-
-		btnEditProvince.setFont(new Font("Tahoma", Font.PLAIN, 14));
-
-		JButton btnDeleteProvince = new JButton("Delete");
-		btnDeleteProvince.setBounds(252, 141, 97, 25);
-		btnDeleteProvince.setEnabled(false);
-		provinceInformationPane.add(btnDeleteProvince);
-
-		btnDeleteProvince.setFont(new Font("Tahoma", Font.PLAIN, 14));
-
-		JButton btnSaveProvince = new JButton("Save");
-		btnSaveProvince.setBounds(369, 141, 97, 25);
-		provinceInformationPane.add(btnSaveProvince);
-		btnSaveProvince.setEnabled(false);
-		btnSaveProvince.setFont(new Font("Tahoma", Font.PLAIN, 14));
-
-		JButton btnCancelProvince = new JButton("Cancel");
-		btnCancelProvince.setBounds(485, 141, 97, 25);
-		provinceInformationPane.add(btnCancelProvince);
-
-		btnCancelProvince.setFont(new Font("Tahoma", Font.PLAIN, 14));
-
-		JLabel lblProvinceInformation = new JLabel("Province Information");
-		lblProvinceInformation.setFont(new Font("Tahoma", Font.BOLD, 18));
-		lblProvinceInformation.setBounds(204, 11, 199, 39);
-		provinceInformationPane.add(lblProvinceInformation);
-
-		JLabel lblProvinceManagement = new JLabel("Province Management");
-		lblProvinceManagement.setFont(new Font("Tahoma", Font.BOLD, 24));
-		lblProvinceManagement.setBounds(424, 11, 273, 32);
-		provincePanel.add(lblProvinceManagement);
-
-		JPanel provinceMessagePane = new JPanel();
-		provinceMessagePane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		provinceMessagePane.setBounds(501, 324, 599, 175);
-		provincePanel.add(provinceMessagePane);
-		provinceMessagePane.setLayout(null);
-
-		txtProvinceMessage = new JTextArea();
-		txtProvinceMessage.setEditable(false);
-		txtProvinceMessage.setLineWrap(true);
-		txtProvinceMessage.setWrapStyleWord(true);
-		txtProvinceMessage.setBounds(12, 37, 575, 125);
-		provinceMessagePane.add(txtProvinceMessage);
-		txtProvinceMessage.setForeground(Color.RED);
-		txtProvinceMessage.setFont(new Font("Monospaced", Font.BOLD, 20));
-
-		JLabel lblNewLabel = new JLabel("Message");
-		lblNewLabel.setBounds(258, 0, 83, 36);
-		provinceMessagePane.add(lblNewLabel);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 18));
-
-		// Event listener
-		btnCancelProvince.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				txtProvinceName.setEditable(false);
-				txtProvinceID.setText("");
-				txtProvinceName.setText("");
-				btnSaveProvince.setEnabled(false);
-			}
-		});
-
-		btnSaveProvince.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if (txtProvinceName.getText().isEmpty()) {
-					showProvinceMessage("Province name can't be null");
-					txtProvinceName.requestFocus();
-				} else {
-					String provinceName = txtProvinceName.getText();
-					if (!isEditProvince) {
-						String message = provinceBUS.insert(provinceName);
-						showProvinceMessage(message);
-					} else {
-						int provinceId = Integer.parseInt(txtProvinceID.getText());
-						String message = provinceBUS.update(provinceId, provinceName);
-						showProvinceMessage(message);
-					}
-					addRowToProvinceTable(provinceBUS.getProvinceList());
-					addProvinceNameComboBox();
-					txtProvinceID.setText("");
-					txtProvinceName.setText("");
-					btnSaveProvince.setEnabled(false);
-				}
-			}
-		});
-
-		btnDeleteProvince.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				DefaultTableModel model = (DefaultTableModel) provinceTable.getModel();
-				int selectedRowIndex = provinceTable.getSelectedRow();
-				if (selectedRowIndex != -1) {
-					int accept = JOptionPane.showConfirmDialog(null,
-							"Bạn có chắc muốn xóa?\nID: " + provinceTable.getValueAt(selectedRowIndex, 0).toString()
-									+ "\nName: " + provinceTable.getValueAt(selectedRowIndex, 1).toString(),
-							"Xóa tỉnh", JOptionPane.YES_NO_OPTION);
-					if (accept == JOptionPane.YES_OPTION) {
-						String message = provinceBUS.delete(Integer.parseInt(txtProvinceID.getText()));
-						showProvinceMessage(message);
-						addRowToProvinceTable(provinceBUS.getProvinceList());
-						addProvinceNameComboBox();
-						txtProvinceID.setText("");
-						txtProvinceName.setText("");
-						txtProvinceName.setEditable(false);
-					}
-
-				} else {
-					showProvinceMessage("You have to choose a province row first");
-				}
-			}
-		});
-
-		btnEditProvince.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				DefaultTableModel model = (DefaultTableModel) provinceTable.getModel();
-				int selectedRowIndex = provinceTable.getSelectedRow();
-				if (selectedRowIndex != -1) {
-					isEditProvince = true;
-					btnSaveProvince.setEnabled(true);
-					txtProvinceName.setEditable(true);
-					txtProvinceName.requestFocus();
-				} else {
-					JOptionPane.showMessageDialog(null, "You have to choose a province row first", "Lỗi",
-							JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
-
-		btnInsertProvince.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				txtProvinceID.setText("");
-				txtProvinceName.setText("");
-				txtProvinceName.setEditable(true);
-				txtProvinceName.requestFocus();
-				btnSaveProvince.setEnabled(true);
-				isEditProvince = false;
-			}
-		});
-
-		provinceTable.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				btnEditProvince.setEnabled(true);
-				btnDeleteProvince.setEnabled(true);
-				btnEditProvince.setEnabled(true);
-				DefaultTableModel model = (DefaultTableModel) provinceTable.getModel();
-				int selectedRowIndex = provinceTable.getSelectedRow();
-				txtProvinceID.setText(model.getValueAt(selectedRowIndex, 0).toString());
-				txtProvinceName.setText(model.getValueAt(selectedRowIndex, 1).toString());
-			}
-		});
-	}
-	
-	private void initializeAbout() {
-		JPanel aboutPanel = new JPanel();
-		tabbedPane.addTab("About us", null, aboutPanel, null);
-		aboutPanel.setLayout(null);
-
-		JLabel lblTitle = new JLabel("Chương trình quản lý thí sinh dự thi Đại Học");
-		lblTitle.setFont(new Font("Tahoma", Font.BOLD, 36));
-		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setBounds(71, 26, 994, 52);
-		aboutPanel.add(lblTitle);
-		
-		JPanel aboutPanelInfor = new JPanel();
-		aboutPanelInfor.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-		aboutPanelInfor.setBounds(283, 112, 571, 315);
-		aboutPanel.add(aboutPanelInfor);
-		aboutPanelInfor.setLayout(null);
-
-		JLabel lblTeacherName = new JLabel("Bùi Minh Cường");
-		lblTeacherName.setBounds(282, 41, 167, 30);
-		aboutPanelInfor.add(lblTeacherName);
-		lblTeacherName.setFont(new Font("Tahoma", Font.PLAIN, 18));
-
-		JLabel lblTeacher = new JLabel("Thầy giáo bộ môn:");
-		lblTeacher.setBounds(44, 41, 167, 30);
-		aboutPanelInfor.add(lblTeacher);
-		lblTeacher.setFont(new Font("Tahoma", Font.PLAIN, 18));
-
-		JLabel lblStudentList = new JLabel("Danh sách sinh viên:");
-		lblStudentList.setBounds(44, 82, 167, 30);
-		aboutPanelInfor.add(lblStudentList);
-		lblStudentList.setFont(new Font("Tahoma", Font.PLAIN, 18));
-
-		JLabel lblHoai = new JLabel("Phan Văn Hoài (171203470)");
-		lblHoai.setBounds(282, 82, 296, 30);
-		aboutPanelInfor.add(lblHoai);
-		lblHoai.setFont(new Font("Tahoma", Font.PLAIN, 18));
-
-		JLabel lblNam = new JLabel("Phạm Nhật Nam (171200791)");
-		lblNam.setBounds(282, 123, 296, 30);
-		aboutPanelInfor.add(lblNam);
-		lblNam.setFont(new Font("Tahoma", Font.PLAIN, 18));
-
-		JLabel lblTung = new JLabel("Lê Sơn Tùng (171210160)");
-		lblTung.setBounds(282, 164, 296, 30);
-		aboutPanelInfor.add(lblTung);
-		lblTung.setFont(new Font("Tahoma", Font.PLAIN, 18));
-
-		JLabel lblClassName = new JLabel("Công nghệ thông tin 1 - K58");
-		lblClassName.setBounds(282, 205, 296, 30);
-		aboutPanelInfor.add(lblClassName);
-		lblClassName.setFont(new Font("Tahoma", Font.PLAIN, 18));
-
-		JLabel lblClass = new JLabel("Lớp:");
-		lblClass.setBounds(44, 205, 195, 30);
-		aboutPanelInfor.add(lblClass);
-		lblClass.setFont(new Font("Tahoma", Font.PLAIN, 18));
-
-		JLabel lblUniversity = new JLabel("Trường:");
-		lblUniversity.setBounds(44, 246, 195, 30);
-		aboutPanelInfor.add(lblUniversity);
-		lblUniversity.setFont(new Font("Tahoma", Font.PLAIN, 18));
-
-		JLabel lblUniversityName = new JLabel("Đại học Giao Thông Vận Tải");
-		lblUniversityName.setBounds(282, 246, 265, 30);
-		aboutPanelInfor.add(lblUniversityName);
-		lblUniversityName.setFont(new Font("Tahoma", Font.PLAIN, 18));
-	}
-
-	private void addRowToProvinceTable(List<ProvinceDTO> provinces) {
-		DefaultTableModel model = new DefaultTableModel();
-		model.addColumn("Province ID");
-		model.addColumn("Province Name");
-		provinces = provinceBUS.getProvinceList();
-		Object provinceTableRowData[] = new Object[2];
-		for (ProvinceDTO province : provinces) {
-			provinceTableRowData[0] = province.getId();
-			provinceTableRowData[1] = province.getName();
-			model.addRow(provinceTableRowData);
-		}
-		provinceTable.setModel(model);
-	}
-
 	private void addRowToStudentTable(List<StudentDTO> students) {
 
 		DefaultTableModel model = new DefaultTableModel();
@@ -895,9 +543,5 @@ public class StudentManagement {
 		txtStudentMessage.setText(message);
 		timer.restart();
 	}
-
-	private void showProvinceMessage(String message) {
-		txtProvinceMessage.setText(message);
-		timer.restart();
-	}
+	
 }
