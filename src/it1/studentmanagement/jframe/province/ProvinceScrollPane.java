@@ -31,6 +31,13 @@ public class ProvinceScrollPane extends JScrollPane {
 		provinceTable.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		provinceTable.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "ID", "Province Name" }));
 		setViewportView(provinceTable);
+		
+		provinceTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// Event for this action is written in ProvinceInfoPanel
+			}
+		});
 	}
 	
 	protected void addRowToProvinceTable(List<ProvinceDTO> provinces) {

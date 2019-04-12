@@ -181,7 +181,7 @@ public class ProvinceInfoPanel extends JPanel {
 			}
 		});
 		
-		// Add an event for scrollPane table
+		// Add an event for scrollPane table onClick
 		scrollPane.provinceTable.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
