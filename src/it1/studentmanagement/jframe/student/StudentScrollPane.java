@@ -71,19 +71,4 @@ public class StudentScrollPane  extends JScrollPane{
 		studentTable.setModel(model);
 	}
 	
-	protected void addProvinceComboBox(JComboBox comboBox) {
-		ProvinceDAO provinces = new ProvinceDAO();
-		List<ProvinceDTO> provinceList;
-		try {
-			comboBox.removeAllItems();
-			comboBox.addItem("--Chọn tỉnh--");
-			provinceList = provinces.getAllProvinces();
-			for (int i = 0; i < provinceList.size(); i++) {
-				comboBox.addItem(provinceList.get(i).getName());
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 }

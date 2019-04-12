@@ -10,9 +10,11 @@ public class DBUtil {
 	public static Connection getSqlConn(){
 		Connection conn = null;
 		String strConnection = "jdbc:mysql://localhost:3306/student_management?useUnicode=true&characterEncoding=utf-8&useServerPrepStmts=false";
+		String username = "root";
+		String password = "";
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			conn = DriverManager.getConnection(strConnection,"root","");
+			conn = DriverManager.getConnection(strConnection,username,password);
 		} catch (SQLException | ClassNotFoundException e) {
 			System.out.println("Loi: " + e.toString());
 		}

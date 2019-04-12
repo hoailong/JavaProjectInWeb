@@ -40,7 +40,7 @@ public class StudentPanel extends JPanel{
 		StudentSearchPanel searchPanel = new StudentSearchPanel(studentBUS, scrollPane);
 		add(searchPanel);
 		
-		StudentInfoPanel infoPanel = new StudentInfoPanel(studentBUS , provinceBUS, scrollPane, messagePanel);
+		StudentInfoPanel infoPanel = new StudentInfoPanel(studentBUS , provinceBUS, scrollPane, messagePanel, searchPanel);
 		add(infoPanel);
 		
 		scrollPane.addRowToStudentTable(studentBUS.getStudentList());

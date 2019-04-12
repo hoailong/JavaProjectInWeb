@@ -38,51 +38,53 @@ public class StudentInfoPanel extends JPanel{
 	private JTextField txtMath;
 	private JTextField txtPhysical;
 	private JTextField txtChemistry;
-	private JComboBox comboBoxStudent;
+	protected JComboBox comboBoxStudent;
 	protected boolean isEditStudent = false;
 
-	public StudentInfoPanel(StudentBUS studentBUS, ProvinceBUS provinceBUS, StudentScrollPane scrollPane, StudentMessagePanel messagePanel) {
+	public StudentInfoPanel(StudentBUS studentBUS, ProvinceBUS provinceBUS, StudentScrollPane scrollPane, StudentMessagePanel messagePanel, StudentSearchPanel searchPanel) {
 		setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		setBounds(12, 261, 712, 293);
-		//getContentPane().add(studentInfoPanel);
 		setLayout(null);
 
+		JLabel lblStudentInfomation = new JLabel("Student Information");
+		lblStudentInfomation.setForeground(Color.BLACK);
+		lblStudentInfomation.setBounds(250, 14, 218, 16);
+		lblStudentInfomation.setFont(new Font("Tahoma", Font.BOLD, 20));
+		add(lblStudentInfomation);
+		
 		JLabel lblStudentID = new JLabel("Student ID:");
 		lblStudentID.setBounds(33, 66, 72, 17);
-		add(lblStudentID);
 		lblStudentID.setFont(new Font("Tahoma", Font.PLAIN, 14));
-
+		add(lblStudentID);
+		
 		txtStudentId = new JTextField();
 		txtStudentId.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtStudentId.setEditable(false);
 		txtStudentId.setBounds(141, 58, 242, 30);
 		add(txtStudentId);
-		txtStudentId.setColumns(10);
 
 		JLabel lblStudentName = new JLabel("Student Name:");
 		lblStudentName.setBounds(33, 94, 105, 31);
-		add(lblStudentName);
 		lblStudentName.setFont(new Font("Tahoma", Font.PLAIN, 14));
-
+		add(lblStudentName);
+		
 		JLabel lblDayOfBirth = new JLabel("Day Of Birth:");
 		lblDayOfBirth.setBounds(33, 134, 105, 16);
-		add(lblDayOfBirth);
 		lblDayOfBirth.setFont(new Font("Tahoma", Font.PLAIN, 14));
-
+		add(lblDayOfBirth);
+		
 		txtStudentName = new JTextField();
 		txtStudentName.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtStudentName.setEditable(false);
 		txtStudentName.setBounds(141, 93, 242, 30);
 		add(txtStudentName);
-		txtStudentName.setColumns(10);
-
+		
 		txtStudentDob = new JTextField();
 		txtStudentDob.setToolTipText("YYYY-MM-DD");
 		txtStudentDob.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtStudentDob.setEditable(false);
 		txtStudentDob.setBounds(141, 128, 242, 30);
 		add(txtStudentDob);
-		txtStudentDob.setColumns(10);
 
 		JLabel lblStudentProvinceName = new JLabel("Province Name\r\n:");
 		lblStudentProvinceName.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -130,57 +132,52 @@ public class StudentInfoPanel extends JPanel{
 		txtMath.setEditable(false);
 		txtMath.setBounds(548, 95, 142, 30);
 		add(txtMath);
-		txtMath.setColumns(10);
 
 		txtPhysical = new JTextField();
 		txtPhysical.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtPhysical.setEditable(false);
 		txtPhysical.setBounds(548, 128, 142, 30);
 		add(txtPhysical);
-		txtPhysical.setColumns(10);
 
 		txtChemistry = new JTextField();
 		txtChemistry.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		txtChemistry.setEditable(false);
 		txtChemistry.setBounds(548, 163, 142, 30);
 		add(txtChemistry);
-		txtChemistry.setColumns(10);
-
-		JButton btnSaveStudent = new JButton("Save");
-		btnSaveStudent.setEnabled(false);
-		btnSaveStudent.setBounds(259, 255, 97, 25);
-		add(btnSaveStudent);
 
 		JButton btnInsertStudent = new JButton("Insert");
-		btnInsertStudent.setBounds(42, 255, 97, 25);
+		btnInsertStudent.setBounds(10, 255, 100, 25);
 		add(btnInsertStudent);
-
+		
 		JButton btnEditStudent = new JButton("Edit");
 		btnEditStudent.setEnabled(false);
-		btnEditStudent.setBounds(150, 255, 97, 25);
+		btnEditStudent.setBounds(120, 255, 100, 25);
 		add(btnEditStudent);
+		
+		JButton btnSaveStudent = new JButton("Save");
+		btnSaveStudent.setEnabled(false);
+		btnSaveStudent.setBounds(230, 255, 100, 25);
+		add(btnSaveStudent);
 
 		JButton btnDeleteStudent = new JButton("Delete");
 		btnDeleteStudent.setEnabled(false);
-		btnDeleteStudent.setBounds(368, 255, 97, 25);
+		btnDeleteStudent.setBounds(340, 255, 100, 25);
 		add(btnDeleteStudent);
 
 		JButton btnCancelStudent = new JButton("Cancel");
-		btnCancelStudent.setBounds(477, 255, 97, 25);
+		btnCancelStudent.setBounds(450, 255, 100, 25);
 		add(btnCancelStudent);
-
-		JLabel lblStudentInfomation = new JLabel("Student Information");
-		lblStudentInfomation.setForeground(Color.BLACK);
-		lblStudentInfomation.setBounds(291, 14, 218, 16);
-		add(lblStudentInfomation);
-		lblStudentInfomation.setFont(new Font("Tahoma", Font.BOLD, 20));
+		
+		JButton btnReloadProvince = new JButton("Reload Province");
+		btnReloadProvince.setBounds(560, 255, 135, 25);
+		add(btnReloadProvince);
 
 		comboBoxStudent = new JComboBox();
 		comboBoxStudent.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		comboBoxStudent.setBounds(141, 163, 242, 30);
 		comboBoxStudent.setEditable(false);
 		comboBoxStudent.setEnabled(false);
-		scrollPane.addProvinceComboBox(comboBoxStudent);
+		addProvinceCBInInfo();
 		add(comboBoxStudent);
 		
 		
@@ -344,6 +341,12 @@ public class StudentInfoPanel extends JPanel{
 			}
 		});
 		
+		btnReloadProvince.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				addProvinceCBInInfo();
+				searchPanel.addProvinceCBInSearch();
+			}
+		});
 	}
 	
 
@@ -366,5 +369,20 @@ public class StudentInfoPanel extends JPanel{
 		rdbtnMale.setEnabled(bool);
 		rdbtnFemale.setEnabled(bool);
 	}
-	
+
+	protected void addProvinceCBInInfo() {
+		ProvinceDAO provinces = new ProvinceDAO();
+		List<ProvinceDTO> provinceList;
+		try {
+			comboBoxStudent.removeAllItems();
+			comboBoxStudent.addItem("--Chọn tỉnh--");
+			provinceList = provinces.getAllProvinces();
+			for (int i = 0; i < provinceList.size(); i++) {
+				comboBoxStudent.addItem(provinceList.get(i).getName());
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

@@ -22,7 +22,7 @@ import it1.studentmanagement.dto.StudentDTO;
 
 public class StudentSearchPanel  extends JPanel{
 	private JTextField txtStudenSeachId;
-	private JComboBox cbProvinceStudenSearch;
+	protected JComboBox cbProvinceStudenSearch;
 
 	public StudentSearchPanel(StudentBUS studentBUS, StudentScrollPane scrollPane) {
 		setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -60,14 +60,14 @@ public class StudentSearchPanel  extends JPanel{
 
 		cbProvinceStudenSearch = new JComboBox();
 		cbProvinceStudenSearch.setBounds(185, 85, 177, 22);
-		scrollPane.addProvinceComboBox(cbProvinceStudenSearch);
+		addProvinceCBInSearch();
 		add(cbProvinceStudenSearch);
 		
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				String studentIdSearch = txtStudenSeachId.getText();
 				String studentProvinceNameSearch = cbProvinceStudenSearch.getSelectedItem().toString();
-				if (studentProvinceNameSearch.equals("--Chọn tỉnh--")) {
+				if (studentProvinceNameSearch.equals("--Tất cả--")) {
 					studentProvinceNameSearch = "";
 				}
 				List<StudentDTO> studentsSearchList = studentBUS.getStudentList(studentIdSearch,
@@ -75,6 +75,22 @@ public class StudentSearchPanel  extends JPanel{
 				scrollPane.addRowToStudentTable(studentsSearchList);
 			}
 		});
+	}
+	
+	protected void addProvinceCBInSearch() {
+		ProvinceDAO provinces = new ProvinceDAO();
+		List<ProvinceDTO> provinceList;
+		try {
+			cbProvinceStudenSearch.removeAllItems();
+			cbProvinceStudenSearch.addItem("--Tất cả--");
+			provinceList = provinces.getAllProvinces();
+			for (int i = 0; i < provinceList.size(); i++) {
+				cbProvinceStudenSearch.addItem(provinceList.get(i).getName());
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }
