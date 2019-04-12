@@ -22,11 +22,6 @@ public class ProvinceMessagePanel extends JPanel {
 		}
 
 	});
-	
-	protected void showProvinceMessage(String message) {
-		txtProvinceMessage.setText(message);
-		timer.restart();
-	}
 
 	public ProvinceMessagePanel() {
 		setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
@@ -48,5 +43,9 @@ public class ProvinceMessagePanel extends JPanel {
 		add(txtProvinceMessage);
 		
 	}
-
+	
+	protected void showProvinceMessage(String message) {
+		txtProvinceMessage.setText(message);
+		timer.restart();
+	}
 }

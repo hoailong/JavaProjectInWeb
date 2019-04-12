@@ -1,24 +1,28 @@
-package it1.studentmanagement.jframe.studentFrame;
+package it1.studentmanagement.jframe.student;
 
 import java.awt.Font;
+import java.sql.SQLException;
 import java.util.List;
 
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import it1.studentmanagement.dao.ProvinceDAO;
+import it1.studentmanagement.dto.ProvinceDTO;
 import it1.studentmanagement.dto.StudentDTO;
 
-public class studentScrollPane  extends JScrollPane{
+public class StudentScrollPane  extends JScrollPane{
 	private JTable studentTable;
 
 	public JTable getStudentTable() {
 		return studentTable;
 	}
 
-	public studentScrollPane() {
-		setBounds(12, 37, 1114, 211);
+	public StudentScrollPane() {
+		setBounds(12, 37, 1176, 211);
 		//getContentPane().add(studentScrollPane);
 
 		studentTable = new JTable() {
@@ -65,5 +69,21 @@ public class studentScrollPane  extends JScrollPane{
 			model.addRow(studentTableRowData);
 		}
 		studentTable.setModel(model);
+	}
+	
+	protected void addProvinceComboBox(JComboBox comboBox) {
+		ProvinceDAO provinces = new ProvinceDAO();
+		List<ProvinceDTO> provinceList;
+		try {
+			comboBox.removeAllItems();
+			comboBox.addItem("--Chọn tỉnh--");
+			provinceList = provinces.getAllProvinces();
+			for (int i = 0; i < provinceList.size(); i++) {
+				comboBox.addItem(provinceList.get(i).getName());
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

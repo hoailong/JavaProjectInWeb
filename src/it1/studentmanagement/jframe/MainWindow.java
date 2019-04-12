@@ -16,6 +16,7 @@ import javax.swing.border.EtchedBorder;
 
 import it1.studentmanagement.jframe.about.AboutPanel;
 import it1.studentmanagement.jframe.province.ProvincePanel;
+import it1.studentmanagement.jframe.student.StudentPanel;
 
 public class MainWindow extends JFrame {
 	private JTabbedPane tabbedPane;
@@ -28,6 +29,9 @@ public class MainWindow extends JFrame {
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(6, 6, 1200, 600);
 		add(tabbedPane);
+		
+		StudentPanel studentPanel = new StudentPanel();
+		tabbedPane.addTab("Student", studentPanel);
 		
 		ProvincePanel provincePanel = new ProvincePanel();
 		tabbedPane.addTab("Province", provincePanel);
